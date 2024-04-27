@@ -35,6 +35,11 @@
             const voices = speechSynthesis.getVoices();
             console.log('Available voices:', voices); // You can choose a specific voice here
 
+            utterance.onend = function(event) {
+                console.log('Speech completed!');
+                // Perform any actions after speech finishes
+            };   
+
             // Speak the utterance
             speechSynthesis.speak(utterance);
         }
