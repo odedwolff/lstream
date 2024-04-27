@@ -1,14 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AJAX Example</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AJAX Example</title>
 </head>
+
 <body>
-  <button id="send-button">Send AJAX Message</button>
-  <div id="response"></div>
-  
-  <!-- <script src="script.js"></script> -->
+    <button id="send-button">Send AJAX Message</button>
+    <button id="test TTS" onclick="testTTS()">test TTS</button>
+
+    <div id="response"></div>
+
+    <!-- <script src="script.js"></script> -->
+    <script>
+        function testTTS() {
+            /* const textToSpeak = 'This is some text to be spoken.';
+            const desiredLanguage = 'en-US'; // Example language code (English - US) */
+
+            const textToSpeak = 'Здесь вкусный кофе';
+            const desiredLanguage = "ru-RU"
+
+            // Create a SpeechSynthesisUtterance object
+            const utterance = new SpeechSynthesisUtterance();
+            utterance.text = textToSpeak;
+            utterance.lang = desiredLanguage;
+
+            // Optionally set other properties like pitch, rate, and voice
+            // utterance.pitch = 1; // Adjust pitch (1 is default)
+            // utterance.rate = 1; // Adjust speaking rate (1 is default)
+
+            // Get available voices (optional)
+            const voices = speechSynthesis.getVoices();
+            console.log('Available voices:', voices); // You can choose a specific voice here
+
+            // Speak the utterance
+            speechSynthesis.speak(utterance);
+        }
+    </script>
 </body>
+
 </html>
