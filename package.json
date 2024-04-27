@@ -1,0 +1,15 @@
+{
+  "name": "lstream",
+  "version": "1.0.0",
+  "description": "a generator of practice texts and translations for foriegn language learning",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@google/generative-ai": "^0.8.0",
+    "express": "^4.19.2"
+  }
+}
