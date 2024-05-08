@@ -10,6 +10,8 @@
 <body>
     <button id="send-button" onclick="testSendAjax()">Send AJAX Message</button>
     <button id="test TTS" onclick="testTTS()">test TTS</button>
+    <button id="test cycle" onclick="testSimpleCycle()">test cycle</button>
+
 
     <div id="response"></div>
 
@@ -47,6 +49,21 @@
         function testSendAjax() {
             const xhr = new XMLHttpRequest();
             xhr.open('GET', '/ajaxTest'); // Replace with your actual endpoint
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    //responseDiv.textContent = xhr.responseText;
+                    console.log(xhr.responseText);
+                } else {
+                    //responseDiv.textContent = 'Error: ' + xhr.statusText;
+                    console.log( 'Error: ' + xhr.statusText);
+                }
+            };
+            xhr.send();
+        }
+
+        function testSimpleCycle() {
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', '/simpleCycle'); // Replace with your actual endpoint
             xhr.onload = function () {
                 if (xhr.status === 200) {
                     //responseDiv.textContent = xhr.responseText;

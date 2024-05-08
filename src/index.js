@@ -1,5 +1,6 @@
 const express = require('express');
 const path = require('path');
+const caller = require('./GeminiAPI/caller')
 
 
 const app = express();
@@ -17,6 +18,14 @@ app.get('/hello', (req, res) => {
 
 app.get('/ajaxTest', (req, res) => {
     res.send('ajaxResponse!');
+  });
+
+
+  app.get('/simpleCycle', (req, res) => {
+    const language = 'italian';
+    const diffucultyOf10 = 4;
+    caller.simpleCycleTest(language, diffucultyOf10)
+    res.send('simpleCycleResponse!');
   });
 
 
