@@ -24,8 +24,15 @@ app.get('/ajaxTest', (req, res) => {
   app.get('/simpleCycle', (req, res) => {
     const language = 'italian';
     const diffucultyOf10 = 4;
-    caller.simpleCycleTest(language, diffucultyOf10)
-    res.send('simpleCycleResponse!');
+    var retObj = caller.simpleCycleTest(language, diffucultyOf10)
+    retObj.then(
+      function(inRet){
+            res.send(JSON.stringify(inRet));
+      }
+
+    );
+    //res.send('simpleCycleResponse!');
+    //res.send(JSON.stringify(retObj));
   });
 
 

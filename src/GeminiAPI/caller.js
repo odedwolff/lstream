@@ -21,7 +21,13 @@ async function simpleCycleTest(language, diffucultyOf10) {
   const result2 = await model.generateContent(promtp2);
   const response2 = await result2.response;
   const trxText = response2.text();
-  console.log("translated text +" + trxText);
+  console.log("translated text: " + trxText);
+
+  retObj =  {
+    genText: genText, 
+    translation: trxText
+  };
+  return retObj;
 
 }
 
