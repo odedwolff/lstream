@@ -10,7 +10,11 @@
 <body>
     <button id="send-button" onclick="testSendAjax()">Send AJAX Message</button>
     <button id="test TTS" onclick="testTTS()">test TTS</button>
-    <button id="test cycle" onclick="testSimpleCycle()">test cycle</button>
+    <button id="test cycle" onclick="cycle()">test cycle</button>
+    <button id="startSeq" onclick="startSeq()">startSequence</button>
+    <button id="endSeq" onclick="endSeq()">end sequence</button>
+
+
 
 
     <div id="response"></div>
@@ -23,6 +27,8 @@
 
             const textToSpeak = 'Здесь вкусный кофе';
             const desiredLanguage = "ru-RU"
+
+            var seqOn = false;
 
             // Create a SpeechSynthesisUtterance object
             const utterance = new SpeechSynthesisUtterance();
@@ -46,6 +52,14 @@
             speechSynthesis.speak(utterance);
         }
 
+        function startSeq(){
+            seqOn = true;
+            nextCycle();
+        }
+        function endSeq(){
+            seqOn = false;
+        }
+
         function testSendAjax() {
             const xhr = new XMLHttpRequest();
             xhr.open('GET', '/ajaxTest'); // Replace with your actual endpoint
@@ -61,13 +75,14 @@
             xhr.send();
         }
 
-        function testSimpleCycle() {
+        function cycle(after) {
             const xhr = new XMLHttpRequest();
             xhr.open('GET', '/simpleCycle'); // Replace with your actual endpoint
             xhr.onload = function () {
                 if (xhr.status === 200) {
                     //responseDiv.textContent = xhr.responseText;
                     console.log(xhr.responseText);
+                    after();
                 } else {
                     //responseDiv.textContent = 'Error: ' + xhr.statusText;
                     console.log( 'Error: ' + xhr.statusText);
@@ -75,6 +90,16 @@
             };
             xhr.send();
         }
+
+        function nextCycle(){
+            if(seqOn){
+                    console.log("----");
+                    setTimeout(cycle.bind(null, nextCycle), 400);
+            }
+           
+        }
+
+
     </script>
 </body>
 
