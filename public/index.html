@@ -163,7 +163,12 @@
         }
 
         
-        
+        function handleAPIResponse(response, afterCallBack){
+            var resObj = JSON.parse(response);
+            const genText = resObj['genText'];
+            const translation = resObj['translation'];
+            talkCycle(genText, translation, 'it-IT', 'en-US', 700, afterCallBack);
+        }
         
         function cycle(after) {
             const xhr = new XMLHttpRequest();
@@ -172,7 +177,8 @@
                 if (xhr.status === 200) {
                     //responseDiv.textContent = xhr.responseText;
                     console.log(xhr.responseText);
-                    after();
+                    handleAPIResponse(xhr.responseText, after);
+                    //after();
                 } else {
                     //responseDiv.textContent = 'Error: ' + xhr.statusText;
                     console.log( 'Error: ' + xhr.statusText);
