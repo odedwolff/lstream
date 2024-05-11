@@ -9,7 +9,7 @@
 
 <body>
     <button id="send-button" onclick="testSendAjax()">Send AJAX Message</button>
-    <button id="test TTS" onclick="testTTS()">test TTS</button>
+    <button id="test TTS" onclick="testTTS2()">test TTS</button>
     <button id="test cycle" onclick="cycle()">test cycle</button>
     <button id="startSeq" onclick="startSeq()">startSequence</button>
     <button id="endSeq" onclick="endSeq()">end sequence</button>
@@ -45,6 +45,42 @@
 
             utterance.onend = function(event) {
                 console.log('Speech completed!');
+                // Perform any actions after speech finishes
+            };   
+
+            // Speak the utterance
+            speechSynthesis.speak(utterance);
+        }
+
+        function testTTS2(){
+            speak('same as it ever was, there is always the sun', 'en-US',
+                ()=>{consoe.log("call back called back");}
+            );
+        }
+
+
+        function speak(textToSpeak, desiredLanguage, doAfter){
+            /* const textToSpeak = 'This is some text to be spoken.';
+            const desiredLanguage = 'en-US'; // Example language code (English - US) */
+
+
+
+            // Create a SpeechSynthesisUtterance object
+            const utterance = new SpeechSynthesisUtterance();
+            utterance.text = textToSpeak;
+            utterance.lang = desiredLanguage;
+
+            // Optionally set other properties like pitch, rate, and voice
+            // utterance.pitch = 1; // Adjust pitch (1 is default)
+            // utterance.rate = 1; // Adjust speaking rate (1 is default)
+
+            // Get available voices (optional)
+            const voices = speechSynthesis.getVoices();
+            console.log('Available voices:', voices); // You can choose a specific voice here
+
+            utterance.onend = function(event) {
+                console.log('Speech completed!');
+                doAfter();
                 // Perform any actions after speech finishes
             };   
 
