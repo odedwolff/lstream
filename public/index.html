@@ -8,11 +8,38 @@
 </head>
 
 <body>
-    <button id="send-button" onclick="testSendAjax()">Send AJAX Message</button>
-    <button id="test TTS" onclick="testTalkCycle()">test TTS</button>
-    <button id="test cycle" onclick="cycle()">test cycle</button>
-    <button id="startSeq" onclick="startSeq()">startSequence</button>
-    <button id="endSeq" onclick="endSeq()">end sequence</button>
+    <div id="main cycle panel">
+        <div>
+            <label for="fruits">Select your favorite fruit:</label>
+            <select name="language" id="dropDownLang">
+                <option value="{'langName': 'russian', 'langCode': 'ru-RU'}">russian</option>
+                <option value="'{langName': 'italian', 'langCode': 'it-IT'}">italian</option>
+                <option value="'{langName': 'german', 'langCode': 'de-DE'}">german</option>
+            </select>
+        </div>
+        <div>
+            <label for="fruits">Select your favorite fruit:</label>
+            <select name="language" id="dropDownLevel">
+                <option value="Absolut Beginners">Absolut Beginners</option>
+                <option value="A1">A1</option>
+                <option value="A2">A2</option>
+                <option value="B1"">B1</option>
+                <option value="B2"">B2</option>
+                <option value="C1"">C1</option>
+            </select>
+        </div>
+        <div>
+            <button id="startSeq" onclick="startSeq()">startSequence</button>
+            <button id="endSeq" onclick="endSeq()">end sequence</button>
+        </div>
+    </div>
+
+    <div id="tests">
+        <button id="send-button" onclick="testSendAjax()">Send AJAX Message</button>
+        <button id="test TTS" onclick="testTalkCycle()">test TTS</button>
+        <button id="test cycle" onclick="cycle()">test cycle</button>
+    </div>
+    
 
 
 
@@ -127,11 +154,13 @@
         /**a cyclet for the format: stay questiotn, wait, say answer**/
         function talkCycle(text1, text2, lang1, lang2, waitMs, atComplete){
             SpeakP(text1, lang1).
-            then(()=>{setTimeout(
+            then(()=>{
+                setTimeout(
                 ()=>{
                     SpeakP(text2,lang2).then(atComplete)
-                } 
-             )} , waitMs); 
+                }, waitMs 
+             )}
+            ); 
         }
 
         function testTalkCycle(){
@@ -167,7 +196,7 @@
             var resObj = JSON.parse(response);
             const genText = resObj['genText'];
             const translation = resObj['translation'];
-            talkCycle(genText, translation, 'it-IT', 'en-US', 700, afterCallBack);
+            talkCycle(genText, translation, 'it-IT', 'en-US', 3000, afterCallBack);
         }
         
         function cycle(after) {
@@ -190,7 +219,7 @@
         function nextCycle(){
             if(seqOn){
                     console.log("----");
-                    setTimeout(cycle.bind(null, nextCycle), 400);
+                    setTimeout(cycle.bind(null, nextCycle), 200);
             }
            
         }

@@ -7,10 +7,10 @@ const model = genAI.getGenerativeModel({ model: "gemini-pro"});
 
 
 
-async function simpleCycleTest(language, diffucultyOf10) {
+async function simpleCycleTest(language, level) {
   // For text-only input, use the gemini-pro model
   
-  const prompt1 = "for language practice, please write a completely random short sentence, no longer than 7 words in " + language + " in diffculty level " + diffucultyOf10 + " out of 10";
+  const prompt1 = "please write a random short sentence, no longer than 7 words in " + language + " for language students in level " + level;
   const result = await model.generateContent(prompt1);
   const response = await result.response;
   const genText = response.text();
