@@ -9,7 +9,7 @@
 
 <body>
     <button id="send-button" onclick="testSendAjax()">Send AJAX Message</button>
-    <button id="test TTS" onclick="testTTS3()">test TTS</button>
+    <button id="test TTS" onclick="testTalkCycle()">test TTS</button>
     <button id="test cycle" onclick="cycle()">test cycle</button>
     <button id="startSeq" onclick="startSeq()">startSequence</button>
     <button id="endSeq" onclick="endSeq()">end sequence</button>
@@ -125,9 +125,18 @@
 
 
         /**a cyclet for the format: stay questiotn, wait, say answer**/
-        function talkCycle(text1Info, textInfo, callBackOnComplete){
-            talk()
-  sssssssssssssssssssss
+        function talkCycle(text1, text2, lang1, lang2, waitMs, atComplete){
+            SpeakP(text1, lang1).
+            then(()=>{setTimeout(
+                ()=>{
+                    SpeakP(text2,lang2).then(atComplete)
+                } 
+             )} , waitMs); 
+        }
+
+        function testTalkCycle(){
+            talkCycle("text number one", "text number two", 'en-US', 'en-US', 1200, 
+            ()=>{console.log("talkCycleComplete")});
         }
 
         function startSeq(){
