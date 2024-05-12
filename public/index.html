@@ -10,16 +10,16 @@
 <body>
     <div id="main cycle panel">
         <div>
-            <label for="fruits">Select your favorite fruit:</label>
-            <select name="language" id="dropDownLang">
-                <option value="{'langName': 'russian', 'langCode': 'ru-RU'}">russian</option>
-                <option value="'{langName': 'italian', 'langCode': 'it-IT'}">italian</option>
-                <option value="'{langName': 'german', 'langCode': 'de-DE'}">german</option>
+            <label for="fruits">Select Language:</label>
+            <select name="language" id="dropDownLang" onchange="updateSelectionLang(this)">
+                <option value='{"langName": "russian", "langCode": "ru-RU"}'>russian</option>
+                <option value='{"langName": "italian", "langCode": "it-IT"}'>italian</option>
+                <option value='{"langName": "german", "langCode": "de-DE"}'>german</option>
             </select>
         </div>
         <div>
-            <label for="fruits">Select your favorite fruit:</label>
-            <select name="language" id="dropDownLevel">
+            <label for="fruits">Select Level:</label>
+            <select name="language" id="dropDownLevel" onchange="updateSelectionLevel(this)">
                 <option value="Absolut Beginners">Absolut Beginners</option>
                 <option value="A1">A1</option>
                 <option value="A2">A2</option>
@@ -38,6 +38,7 @@
         <button id="send-button" onclick="testSendAjax()">Send AJAX Message</button>
         <button id="test TTS" onclick="testTalkCycle()">test TTS</button>
         <button id="test cycle" onclick="cycle()">test cycle</button>
+        <button id="test send post" onclick="testSendPost()">test send post</button>
     </div>
     
 
@@ -48,6 +49,9 @@
 
     <!-- <script src="script.js"></script> -->
     <script>
+        var level = 'A1';
+        var lalangInfong = {langName: 'italian', langCode: 'it-IT'};
+
         function testTTS() {
             /* const textToSpeak = 'This is some text to be spoken.';
             const desiredLanguage = 'en-US'; // Example language code (English - US) */
@@ -68,7 +72,7 @@
 
             // Get available voices (optional)
             const voices = speechSynthesis.getVoices();
-            console.log('Available voices:', voices); // You can choose a specific voice here
+           // console.log('Available voices:', voices); // You can choose a specific voice here
 
             utterance.onend = function(event) {
                 console.log('Speech completed!');
@@ -90,6 +94,19 @@
             .then(()=>{console.log("THENED")});
         }
 
+        function updateSelectionLang(dropdown) {
+            const jsonObj = dropdown.value
+            langInfo = JSON.parse(jsonObj);
+        }
+
+        function updateSelectionLevel(dropdown) {
+            level = dropdown.value;
+        }
+
+        
+
+
+
 
         function speak(textToSpeak, desiredLanguage, doAfter){
             /* const textToSpeak = 'This is some text to be spoken.';
@@ -106,7 +123,7 @@
 
             // Get available voices (optional)
             const voices = speechSynthesis.getVoices();
-            console.log('Available voices:', voices); // You can choose a specific voice here
+           // console.log('Available voices:', voices); // You can choose a specific voice here
 
             utterance.onend = function(event) {
                 console.log('Speech completed!');
@@ -135,7 +152,7 @@
 
                 // Get available voices (optional)
                 const voices = speechSynthesis.getVoices();
-                console.log('Available voices:', voices); // You can choose a specific voice here
+               // console.log('Available voices:', voices); // You can choose a specific voice here
 
                 utterance.onend = function(event) {
                     console.log('Speech completed!');
@@ -191,15 +208,54 @@
             xhr.send();
         }
 
+
+        function testSendPost(){
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', '/postTest', true); // Replace with your actual endpoint
+            const jsonData = { param1: "value1", param2: "value2" };
+            xhr.setRequestHeader("Content-Type", "application/json"); // Set header for JSON data
+
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    console.log(xhr.responseText); // Process successful response
+                } else {
+                    console.error(xhr.statusText); // Handle errors
+                }
+            };
+
+            xhr.send(JSON.stringify(jsonData)); // Convert object to JSON string
+        }
+
+        function testSendPost2(){
+                const url = "/postTest";
+                const jsonData = { param1: "value1", param2: "value2" };
+                fetch(url, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(jsonData)
+                })
+                .then(response => response.json()) // Parse the JSON response data
+                .then(data => {
+                    console.log(data); // Process the response data
+                })
+                .catch(error => {
+                    console.error(error); // Handle errors
+                 });
+
+        }
+
         
         function handleAPIResponse(response, afterCallBack){
             var resObj = JSON.parse(response);
             const genText = resObj['genText'];
             const translation = resObj['translation'];
-            talkCycle(genText, translation, 'it-IT', 'en-US', 3000, afterCallBack);
+            //talkCycle(genText, translation, 'it-IT', 'en-US', 3000, afterCallBack);
+            talkCycle(genText, translation, langInfo.langCode, 'en-US', 3000, afterCallBack);
         }
         
-        function cycle(after) {
+        function cycleOld(after) {
             const xhr = new XMLHttpRequest();
             xhr.open('GET', '/simpleCycle'); // Replace with your actual endpoint
             xhr.onload = function () {
@@ -214,6 +270,26 @@
                 }
             };
             xhr.send();
+        }
+
+        function cycle(after) {
+            const xhr = new XMLHttpRequest();
+            const data = {lang:langInfo.langName, level:level};
+            xhr.open('POST', '/simpleCycle', true); // Replace with your actual endpoint
+            xhr.setRequestHeader("Content-Type", "application/json"); // Set header for JSON data
+
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    //responseDiv.textContent = xhr.responseText;
+                    console.log(xhr.responseText);
+                    handleAPIResponse(xhr.responseText, after);
+                    //after();
+                } else {
+                    //responseDiv.textContent = 'Error: ' + xhr.statusText;
+                    console.log( 'Error: ' + xhr.statusText);
+                }
+            };
+            xhr.send(JSON.stringify(data));
         }
 
         function nextCycle(){
