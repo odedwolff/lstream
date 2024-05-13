@@ -32,6 +32,11 @@
             <button id="startSeq" onclick="startSeq()">startSequence</button>
             <button id="endSeq" onclick="endSeq()">end sequence</button>
         </div>
+        <div>
+            <p>inverse languages order:</p>
+            <input type="checkbox" id="inverseCheckBox" name="inverse">
+            <label for="inverse">inverse languages order</label>
+        </div>
     </div>
 
     <div id="tests">
@@ -51,6 +56,7 @@
     <script>
         var level = 'A1';
         var lalangInfong = {langName: 'italian', langCode: 'it-IT'};
+        var inverse = false; 
 
         function testTTS() {
             /* const textToSpeak = 'This is some text to be spoken.';
@@ -252,7 +258,12 @@
             const genText = resObj['genText'];
             const translation = resObj['translation'];
             //talkCycle(genText, translation, 'it-IT', 'en-US', 3000, afterCallBack);
-            talkCycle(genText, translation, langInfo.langCode, 'en-US', 3000, afterCallBack);
+            if(inverse){
+                talkCycle(translation, genText, 'en-US', langInfo.langCode, 3000, afterCallBack);
+
+            }else{
+                talkCycle(genText, translation, langInfo.langCode, 'en-US', 3000, afterCallBack);
+            }
         }
         
         function cycleOld(after) {
@@ -299,6 +310,13 @@
             }
            
         }
+
+        const checkbox = document.getElementById("inverseCheckBox");
+        checkbox.addEventListener("change", function() {
+            inverse = checkbox.checked;
+            console.log("Inverse new state: " + inverse);
+            // Perform actions based on the checkbox state (isActive)
+        });
 
 
     </script>
