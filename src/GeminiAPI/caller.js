@@ -41,10 +41,52 @@ async function simpleCycleTest(language, level) {
 }
 
 
+const themes = ["in and around the house", "at work", "in school", "at the university", " kids freinds conversation", 
+    " women friends conversation", "man freinds conversation", " children playing ", " men hobbies and interest", 
+    " womens hobbies and intrerests", " family dinner", "family vacation", " family reunion", " seniors life", 
+    " grandma and or grandpa hanging with grandchildren", " in nature", " at the park", " in the garden", 
+    " street life", "shopping", " at the market", " at the supermaket", " my hobbies", " my freinds", " sprots",
+    " exercise", " food and drinks", " at the resturant", " in the bus or the bus stop", 
+    " in the train or the train station ", " in the airplane or the airport", " different professions ", " at the office",
+    " art ", " dance and theatre", " film and movies", "tv and streaming", " jokes and comedy", " sad events", 
+    " exciting events", " happy events", " the party", " happy birthday", " the wedding", " the funural", 
+    " reading and writing", " freindship", " love ", " wild animals", " pets", "plants and flowers", " the weather",
+    " the landscape", " the city", " the street", " the village", " computers and technology", " crafts", 
+    " healthcare and medicine"     
+]
+
+
+function randTheme(){
+    const randomIndex = Math.floor(Math.random() * themes.length);
+    // Access the element at the random index
+    return themes[randomIndex];
+}
+
+const personProbabilites = {first: 0.4, second: 0.2, third: 0.4 }
+
+function randPerson(){
+   
+    const randomNumber = Math.random();
+   
+    //in zone 1 
+    if (randomNumber < personProbabilites['first']) {
+        return "first";
+    }
+    // zone 2 or 3
+    if (randomNumber >  (1.0 - personProbabilites['third'])){
+        //zone 2 
+        return "second";
+    }
+    //zone 3 
+    return "third";
+}
+
 function prompter(level, language){
       
-    const part1 = `please write a random sentence in ${language}. this could be a descriptive sentence,
+    const part1Old = `please write a random sentence in ${language}. this could be a descriptive sentence,
     a part of a conversation or of a dialogue.`
+    const part1 = `please write a random sentence in ${language} around the theme: ${randTheme()}. this could be a descriptive sentence,
+    a part of a conversation or of a dialogue. use the ${randPerson()} person. `
     var part2; 
     switch (level) {
 
