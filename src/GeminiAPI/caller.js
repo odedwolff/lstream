@@ -81,13 +81,13 @@ function randPerson(){
     return "third";
 }
 
-function prompter(level, language){
-      
+function prompterOld(level, language) {
+
     const part1Old = `please write a random sentence in ${language}. this could be a descriptive sentence,
     a part of a conversation or of a dialogue.`
     const part1 = `please write a random sentence in ${language} around the theme: ${randTheme()}. this could be a descriptive sentence,
     a part of a conversation or of a dialogue. use the ${randPerson()} person. `
-    var part2; 
+    var part2Old;
     switch (level) {
 
         case "a0", "A0":
@@ -99,32 +99,42 @@ function prompter(level, language){
             and it should be very easy language for people who speak very litte ${language}.`;
             break;
         case "a2", "A2":
-           part2 = ` the length of the sentence should be 4 to 8 words, 
+            part2 = ` the length of the sentence should be 4 to 8 words, 
            and it should be easy language for people who speak only litte ${language}.`;
-           break;
+            break;
         case "b1", "B1":
             part2 = ` the length of the sentence should be 4 to 8 words, 
             and it should be simple language for people who speak intermediate ${language}.`;
             break;
         case "b2", "B2":
-             part2 = ` the length of the sentence should be 5 to 10 words, 
+            part2 = ` the length of the sentence should be 5 to 10 words, 
             and it should be normal language for people who speak intermediate ${language}.`;
-             break;
+            break;
         case "c1", "C1":
             part2 = ` the length of the sentence should be 5 to 13 words, 
             and it should be normal language for people who speak good ${language}, but bellow native level`;
             break;
 
         default:
-          resultString = "Default string (if no case matches)";
-   
-     }
+            resultString = "Default string (if no case matches)";
 
-     const part3 = " the response should only contain the generate text, with no added comments or a translation. ";
-     const prompt = part1 + part2 + part3;
+    }
+    const part3 = " the response should only contain the generate text, with no added comments or a translation. ";
+    const prompt = part1 + part2 + part3;
+    console.log(`prompt = ${prompt}`);
+    return prompt;
+}
+
+function prompter(level, language){
+    const prompt = `please write a short sentence in ${language}, at level ${level}. it should be related somehow to ${randTheme()}
+     and should be in ${randPerson()} person. 
+     make the sentence as long or as short as suitable for level ${level}, but no longer 
+     than 10 words. 
+     please do not include in your reply any comments or translation, just the raw 
+     generated sentence  `;
      console.log(`prompt = ${prompt}`);
      return prompt;
-}
+ }
 
 
 module.exports = {
