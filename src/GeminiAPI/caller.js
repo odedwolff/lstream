@@ -52,7 +52,8 @@ const themes = ["in and around the house", "at work", "in school", "at the unive
     " exciting events", " happy events", " the party", " happy birthday", " the wedding", " the funural", 
     " reading and writing", " freindship", " love ", " wild animals", " pets", "plants and flowers", " the weather",
     " the landscape", " the city", " the street", " the village", " computers and technology", " crafts", 
-    " healthcare and medicine"     
+    " healthcare and medicine", " the human body ", " clothing", " traveling", " mood and emotions", 
+    " traditions and holidays"    
 ]
 
 
