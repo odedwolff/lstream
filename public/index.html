@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AJAX Example</title>
+    <link rel="stylesheet" href="style.css">  
+    <title>LStream</title>
 </head>
 
 <body>
@@ -47,7 +48,7 @@
 
         <div>
             <button id="startSeq" onclick="startSeq()">startSequence</button>
-            <button id="endSeq" onclick="endSeq()">end sequence</button>
+            <button id="endSeq" onclick="endSeq()" disabled>end sequence</button>
         </div>
         <div>
             <p>inverse languages order:</p>
@@ -165,10 +166,18 @@
         
 
         function startSeq(){
+            console.log("click start");
+            document.getElementById("startSeq").setAttribute("disabled", true);
+            document.getElementById("endSeq").removeAttribute("disabled");
+
+           /*  document.getElementById("startSeq").classList.add("disabled-button");
+            document.getElementById("endSeq").classList.remove("disabled-button"); */
             seqOn = true;
             nextCycle();
         }
         function endSeq(){
+            console.log("click end");
+            document.getElementById("endSeq").setAttribute("disabled", true);
             seqOn = false;
         }
 
@@ -220,6 +229,8 @@
             if(seqOn){
                     console.log("----");
                     setTimeout(cycle.bind(null, nextCycle), 200);
+            }else{
+                document.getElementById("startSeq").removeAttribute("disabled");
             }
            
         }
