@@ -23,11 +23,28 @@
                 <option value="absolut beginner">Absolut Beginners</option>
                 <option value="A1">A1</option>
                 <option value="A2">A2</option>
-                <option value="B1"">B1</option>
-                <option value="B2"">B2</option>
-                <option value="C1"">C1</option>
+                <option value="B1">B1</option>
+                <option value="B2">B2</option>
+                <option value="C1">C1</option>
             </select>
         </div>
+
+
+        <div>
+            <label for="dropDownLatency">Select Time To Respond:</label>
+            <select name="level" id="dropDownLatency" onchange="updateSelectionLatency(this)">
+                <option value="2000">2 sec</option>
+                <option value="3000">3 sec</option>
+                <option value="4000">4 sec</option>
+                <option value="5000">5 sec</option>
+                <option value="6000">6 sec</option>
+                <option value="7000">7 sec</option>
+                <option value="8000">8 sec</option>
+
+            </select>
+        </div>
+
+
         <div>
             <button id="startSeq" onclick="startSeq()">startSequence</button>
             <button id="endSeq" onclick="endSeq()">end sequence</button>
@@ -57,7 +74,7 @@
         var level = 'A1';
         var lalangInfong = {langName: 'italian', langCode: 'it-IT'};
         var inverse = false; 
-
+        var answerLatency = 3000;
         
 
         function updateSelectionLang(dropdown) {
@@ -67,6 +84,10 @@
 
         function updateSelectionLevel(dropdown) {
             level = dropdown.value;
+        }
+
+        function updateSelectionLatency(dropdown) {
+            answerLatency = parseInt(dropdown.value);
         }
 
         function speak(textToSpeak, desiredLanguage, doAfter){
@@ -165,10 +186,10 @@
             const translation = resObj['translation'];
             //talkCycle(genText, translation, 'it-IT', 'en-US', 3000, afterCallBack);
             if(inverse){
-                talkCycle(translation, genText, 'en-US', langInfo.langCode, 3000, afterCallBack);
+                talkCycle(translation, genText, 'en-US', langInfo.langCode, answerLatency, afterCallBack);
 
             }else{
-                talkCycle(genText, translation, langInfo.langCode, 'en-US', 3000, afterCallBack);
+                talkCycle(genText, translation, langInfo.langCode, 'en-US', answerLatency, afterCallBack);
             }
         }
         
