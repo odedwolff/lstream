@@ -94,6 +94,8 @@
         var inverse = false; 
         var answerLatency = 3000;
         var maxLen = 5;
+        var shouldRepeat = true;
+        var repeatsLeft = 1; 
         
 
 
@@ -179,7 +181,17 @@
             then(()=>{
                 setTimeout(
                 ()=>{
-                    SpeakP(text2,lang2).then(atComplete)
+                    //SpeakP(text2,lang2).then(atComplete)
+                    SpeakP(text2,lang2).then(
+                        ()=>{
+                            if(shouldRepeat && repeatsLeft > 0 ){
+                                repeatsLeft--;
+                                talkCycle(text1, text2, lang1, lang2, waitMs, atComplete);
+                            }else{
+                                atComplete();
+                            }
+                        }
+                    )
                 }, waitMs 
              )}
             ); 
@@ -248,6 +260,7 @@
         }
 
         function nextCycle(){
+            repeatsLeft = 1;
             if(seqOn){
                     console.log("----");
                     setTimeout(cycle.bind(null, nextCycle), 200);
