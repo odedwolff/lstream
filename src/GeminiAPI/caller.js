@@ -12,13 +12,13 @@ const level2text = {
 
 
 
-async function simpleCycleTest(language, level) {
+async function simpleCycleTest(language, level, maxLen) {
   // For text-only input, use the gemini-pro model
   
   const prompt1_v1 = "please write a random short sentence, no longer than 7 words in " + language + " for language students in level " + level +
    "please make sure to only include the generated text in " + language + " without translation";
 
-  const prompt1 = prompter(level, language);
+  const prompt1 = prompter(level, language, maxLen);
     
   const result = await model.generateContent(prompt1);
   const response = await result.response;
@@ -126,11 +126,9 @@ function prompterOld(level, language) {
     return prompt;
 }
 
-function prompter(level, language){
-    const prompt = `please write a short sentence in ${language}, at level ${level}. it should be related somehow to ${randTheme()}
-     and should be in ${randPerson()} person. 
-     make the sentence as long or as short as suitable for level ${level}, but no longer 
-     than 10 words. 
+function prompter(level, language, maxLen){
+    const prompt = `please write a random sentence in ${language}, at level ${level}. it should be related somehow to ${randTheme()}
+     and should be in ${randPerson()} person, and no longer than ${maxLen} words. 
      please do not include in your reply any comments or translation, just the raw 
      generated sentence  `;
      console.log(`prompt = ${prompt}`);

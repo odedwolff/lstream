@@ -66,9 +66,10 @@ app.post('/postTest', (req, res) => {
     console.log("Received data:", data);
     const language = data.lang;
     const level = data.level;
+    const maxLen = data.maxLen;
     //const level = 'A2';
 
-    var retObj = caller.simpleCycleTest(language, level)
+    var retObj = caller.simpleCycleTest(language, level, maxLen)
     retObj.then(
       function(inRet){
             res.send(JSON.stringify(inRet));

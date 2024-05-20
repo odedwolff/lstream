@@ -19,9 +19,8 @@
             </select>
         </div>
         <div>
-            <label for="dropDownLevel">Select Level:</label>
+            <label for="dropDownLevel">Level:</label>
             <select name="level" id="dropDownLevel" onchange="updateSelectionLevel(this)">
-                <option value="absolut beginner">Absolut Beginners</option>
                 <option value="A1" selected>A1</option>
                 <option value="A2">A2</option>
                 <option value="B1">B1</option>
@@ -30,12 +29,28 @@
             </select>
         </div>
 
+        <div>
+            <label for="dropDownMaxLen">Sentence Max Length:</label>
+            <select name="level" id="dropDownMaxLen" onchange="updateSelectionMaxLen(this)">
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5" selected>5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+
+            </select>
+        </div>
 
         <div>
-            <label for="dropDownLatency">Select Time To Respond:</label>
+            <label for="dropDownLatency">Time To Respond:</label>
             <select name="level" id="dropDownLatency" onchange="updateSelectionLatency(this)">
                 <option value="2000">2 sec</option>
-                <option value="3000">3 sec</option>
+                <option value="3000" selected>3 sec</option>
                 <option value="4000">4 sec</option>
                 <option value="5000">5 sec</option>
                 <option value="6000">6 sec</option>
@@ -44,6 +59,8 @@
 
             </select>
         </div>
+
+       
 
 
         <div>
@@ -76,8 +93,13 @@
         var langInfo = {langName: 'italian', langCode: 'it-IT'};
         var inverse = false; 
         var answerLatency = 3000;
+        var maxLen = 5;
         
 
+
+        function updateSelectionMaxLen(dropdown) {
+            maxLen = dropdown.value;
+        }
         function updateSelectionLang(dropdown) {
             const jsonObj = dropdown.value
             langInfo = JSON.parse(jsonObj);
@@ -205,7 +227,7 @@
         
         function cycle(after) {
             const xhr = new XMLHttpRequest();
-            const data = {lang:langInfo.langName, level:level};
+            const data = {lang:langInfo.langName, level:level, maxLen: maxLen};
             xhr.open('POST', '/simpleCycle', true); // Replace with your actual endpoint
             xhr.setRequestHeader("Content-Type", "application/json"); // Set header for JSON data
 
