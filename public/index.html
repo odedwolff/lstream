@@ -60,17 +60,20 @@
             </select>
         </div>
 
-       
-
+        
 
         <div>
             <button id="startSeq" onclick="startSeq()">startSequence</button>
             <button id="endSeq" onclick="endSeq()" disabled>end sequence</button>
         </div>
         <div>
-            <p>inverse languages order:</p>
             <input type="checkbox" id="inverseCheckBox" name="inverse">
             <label for="inverse">inverse languages order</label>
+        </div>
+
+        <div>
+            <input type="checkbox" id="repeatCheckBox" name="shouldRepeat">
+            <label for="inverse">repeat each sentence</label>
         </div>
     </div>
 
@@ -94,7 +97,7 @@
         var inverse = false; 
         var answerLatency = 3000;
         var maxLen = 5;
-        var shouldRepeat = true;
+        var shouldRepeat = false;
         var repeatsLeft = 1; 
         
 
@@ -274,6 +277,13 @@
         checkbox.addEventListener("change", function() {
             inverse = checkbox.checked;
             console.log("Inverse new state: " + inverse);
+            // Perform actions based on the checkbox state (isActive)
+        });
+
+        const checkboxRepeat = document.getElementById("repeatCheckBox");
+        checkboxRepeat.addEventListener("change", function() {
+            shouldRepeat = checkboxRepeat.checked;
+            console.log("should repeat new state: " + inverse);
             // Perform actions based on the checkbox state (isActive)
         });
 
