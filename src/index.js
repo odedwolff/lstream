@@ -76,6 +76,7 @@ app.post('/postTest', (req, res) => {
             res.send(JSON.stringify(inRet));
       }, 
       function(err){
+        console.log(`ERROR: ${err}`);
         res.status(500).json({ message: 'Internal Server Error' });
       }
 

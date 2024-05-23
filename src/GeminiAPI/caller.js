@@ -13,30 +13,31 @@ const level2text = {
 
 
 async function simpleCycleTest(language, level, maxLen) {
-  // For text-only input, use the gemini-pro model
-  
-  const prompt1_v1 = "please write a random short sentence, no longer than 7 words in " + language + " for language students in level " + level +
-   "please make sure to only include the generated text in " + language + " without translation";
+    // For text-only input, use the gemini-pro model
+    var genText = "gen text pre";
+    var retObj = null; 
 
-  const prompt1 = prompter(level, language, maxLen);
-    
-  const result = await model.generateContent(prompt1);
-  const response = await result.response;
-  const genText = response.text();
-  console.log("generated text +" + genText);
+    const prompt1_v1 = "please write a random short sentence, no longer than 7 words in " + language + " for language students in level " + level +
+        "please make sure to only include the generated text in " + language + " without translation";
 
+    const prompt1 = prompter(level, language, maxLen);
 
-  const promtp2 = "please translate following sentence from " + language + " to english:" + genText;
-  const result2 = await model.generateContent(promtp2);
-  const response2 = await result2.response;
-  const trxText = response2.text();
-  console.log("translated text: " + trxText);
+    const result = await model.generateContent(prompt1);
+    const response = await result.response;
+    genText = response.text();
+    console.log("generated text +" + genText);
 
-  retObj =  {
-    genText: genText, 
-    translation: trxText
-  };
-  return retObj;
+    const promtp2 = "please translate following sentence from " + language + " to english:" + genText;
+    const result2 = await model.generateContent(promtp2);
+    const response2 = await result2.response;
+    const trxText = response2.text();
+    console.log("translated text: " + trxText);
+
+    retObj = {
+        genText: genText,
+        translation: trxText
+    };
+    return retObj;
 
 }
 
