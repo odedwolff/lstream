@@ -1,8 +1,18 @@
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 
 // Access your API key as an environment variable (see "Set up your API key" above)
-const genAI = new GoogleGenerativeAI(process.env.API_KEY);
+
+const apiKey = process.env.API_KEY;
+console.log(apiKey);
+console.log(`apiKey = ${apiKey}`);
+
+const genAI = new GoogleGenerativeAI(apiKey);
+
+console.log(`genAI = ${JSON.stringify(genAI)}`);
+
 const model = genAI.getGenerativeModel({ model: "gemini-pro"});
+
+console.log(`model = ${JSON.stringify(model)}`);
 
 
 
