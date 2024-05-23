@@ -8,7 +8,8 @@ const bodyParser = require('body-parser'); // Import body-parser
 const app = express();
 
 // Define the port to listen on
-const port = 3000;
+const port = process.env.LSTREAM_PORT || 3000;
+
 
 // Serve static files from the 'public' directory
 app.use(express.static(path.join(__dirname, '..','public')));
