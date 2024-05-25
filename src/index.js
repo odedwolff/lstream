@@ -92,3 +92,10 @@ app.post('/postTest', (req, res) => {
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
 });
+
+
+
+//try to keep the server from hinernating 
+setInterval(() => {
+  console.log(`--keep alive ${new Date().toLocaleDateString()}--`);
+}, 60 * 1000);
