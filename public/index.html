@@ -79,6 +79,10 @@
             <input type="checkbox" id="repeatCheckBox" name="shouldRepeat">
             <label for="inverse">repeat each sentence</label>
         </div>
+
+        <div id="waitIndicator" class ="loader">
+
+        </div>
     </div>
 
    <!--  <div id="tests">
@@ -217,7 +221,10 @@
             document.getElementById("endSeq").classList.remove("disabled-button"); */
             seqOn = true;
             nextCycle();
+
         }
+
+
         function endSeq(){
             console.log("click end");
             document.getElementById("endSeq").setAttribute("disabled", true);
@@ -245,6 +252,7 @@
             xhr.setRequestHeader("Content-Type", "application/json"); // Set header for JSON data
 
             xhr.onload = function () {
+                setLoaderVisible(false);
                 if (xhr.status === 200) {
                     //responseDiv.textContent = xhr.responseText;
                     console.log(xhr.responseText);
@@ -258,6 +266,8 @@
                 }
             };
             xhr.send(JSON.stringify(data));
+            setLoaderVisible(true);
+
         }
 
         function nextCycle(){
@@ -269,6 +279,15 @@
                 document.getElementById("startSeq").removeAttribute("disabled");
             }
            
+        }
+
+        function setLoaderVisible(flag){
+            var elm = document.getElementById("waitIndicator");
+            if (flag) {
+                elm.style.visibility = "visible";
+            } else {
+                elm.style.visibility = "hidden";
+            }
         }
 
         const checkbox = document.getElementById("inverseCheckBox");
