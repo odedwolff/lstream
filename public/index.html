@@ -82,7 +82,15 @@
 
         <div id="waitIndicator" class ="loader">
 
+       
         </div>
+
+        <div id="divVerifyPlatfor" class="blockOverlay">
+            <p>
+                currently app only runs on a chorme browser on desktop systems (ie. non mobile).
+                mobile apps are coming. stay tuned! 
+            </p>
+        <div/>
     </div>
 
    <!--  <div id="tests">
@@ -288,6 +296,20 @@
             } else {
                 elm.style.visibility = "hidden";
             }
+        }
+
+
+        function isChromeDesktop() {
+            // Check if the browser is Chrome
+            const isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
+            // Check if the device is a desktop
+            const isDesktop = !/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    
+            return isChrome && isDesktop;
+        }
+
+        if (!isChromeDesktop()){
+            document.getElementById('divVerifyPlatfor').classList.add('visible');
         }
 
         const checkbox = document.getElementById("inverseCheckBox");
