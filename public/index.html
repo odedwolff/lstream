@@ -1,171 +1,158 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">  
-    <title>LStream</title>
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="style.css">  
+        <title>LStream</title>
+    </head>
 
-<body>
-    <div id="main cycle panel">
-        <div>
-            <label for="dropDownLang">Select Language:</label>
-            <select name="languages" id="dropDownLang" onchange="updateSelectionLang(this)">
-                <option value='{"langName": "russian", "langCode": "ru-RU"}'>russian</option>
-                <option value='{"langName": "italian", "langCode": "it-IT"}' selected>italian</option>
-                <option value='{"langName": "german", "langCode": "de-DE"}'>german</option>
-                <option value='{"langName": "french", "langCode": "fr-FR"}'>french</option>
-                <option value='{"langName": "spanish", "langCode": "es-ES"}'>spanish</option>
-                <option value='{"langName": "portuguese ", "langCode": "pt-BR"}'>portuguese</option>
-
-            </select>
+    <body>
+        <div id='header'>
+            <h1>
+                LStream
+            </h1> 
+            <h3>
+                THE LANGUAGE TALK LOOP 
+            </h3>   
         </div>
-        <div>
-            <label for="dropDownLevel">Level:</label>
-            <select name="level" id="dropDownLevel" onchange="updateSelectionLevel(this)">
-                <option value="A1" selected>A1</option>
-                <option value="A2">A2</option>
-                <option value="B1">B1</option>
-                <option value="B2">B2</option>
-                <option value="C1">C1</option>
-            </select>
+        <div id="mainContentBackGround">
+
         </div>
+        <div id="mainCyclePanel">
+            <div>
+                <label for="dropDownLang">Select Language:</label>
+                <select name="languages" id="dropDownLang" onchange="updateSelectionLang(this)">
+                    <option value='{"langName": "russian", "langCode": "ru-RU"}'>russian</option>
+                    <option value='{"langName": "italian", "langCode": "it-IT"}' selected>italian</option>
+                    <option value='{"langName": "german", "langCode": "de-DE"}'>german</option>
+                    <option value='{"langName": "french", "langCode": "fr-FR"}'>french</option>
+                    <option value='{"langName": "spanish", "langCode": "es-ES"}'>spanish</option>
+                    <option value='{"langName": "portuguese ", "langCode": "pt-BR"}'>portuguese</option>
 
-        <div>
-            <label for="dropDownMaxLen">Sentence Max Length:</label>
-            <select name="level" id="dropDownMaxLen" onchange="updateSelectionMaxLen(this)">
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5" selected>5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
-                <option value="11">11</option>
+                </select>
+            </div>
+            <div>
+                <label for="dropDownLevel">Level:</label>
+                <select name="level" id="dropDownLevel" onchange="updateSelectionLevel(this)">
+                    <option value="A1" selected>A1</option>
+                    <option value="A2">A2</option>
+                    <option value="B1">B1</option>
+                    <option value="B2">B2</option>
+                    <option value="C1">C1</option>
+                </select>
+            </div>
 
-            </select>
-        </div>
+            <div>
+                <label for="dropDownMaxLen">Sentence Max Length:</label>
+                <select name="level" id="dropDownMaxLen" onchange="updateSelectionMaxLen(this)">
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5" selected>5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
 
-        <div>
-            <label for="dropDownLatency">Time To Respond:</label>
-            <select name="level" id="dropDownLatency" onchange="updateSelectionLatency(this)">
-                <option value="2000">2 sec</option>
-                <option value="3000" selected>3 sec</option>
-                <option value="4000">4 sec</option>
-                <option value="5000">5 sec</option>
-                <option value="6000">6 sec</option>
-                <option value="7000">7 sec</option>
-                <option value="8000">8 sec</option>
+                </select>
+            </div>
 
-            </select>
-        </div>
+            <div>
+                <label for="dropDownLatency">Time To Respond:</label>
+                <select name="level" id="dropDownLatency" onchange="updateSelectionLatency(this)">
+                    <option value="2000">2 sec</option>
+                    <option value="3000" selected>3 sec</option>
+                    <option value="4000">4 sec</option>
+                    <option value="5000">5 sec</option>
+                    <option value="6000">6 sec</option>
+                    <option value="7000">7 sec</option>
+                    <option value="8000">8 sec</option>
+
+                </select>
+            </div>
+
+            
+
+            <div>
+                <button id="startSeq" onclick="startSeq()">startSequence</button>
+                <button id="endSeq" onclick="endSeq()" disabled>end sequence</button>
+            </div>
+            <div>
+                <input type="checkbox" id="inverseCheckBox" name="inverse">
+                <label for="inverse">inverse languages order</label>
+            </div>
+
+            <div>
+                <input type="checkbox" id="repeatCheckBox" name="shouldRepeat">
+                <label for="inverse">repeat each sentence</label>
+            </div>
+
+            <div id="waitIndicator" class ="loader">
 
         
+            </div>
 
-        <div>
-            <button id="startSeq" onclick="startSeq()">startSequence</button>
-            <button id="endSeq" onclick="endSeq()" disabled>end sequence</button>
+            <div id="divVerifyPlatfor" class="blockOverlay">
+                <p>
+                    currently app only runs on a chorme browser on desktop systems (ie. non mobile).
+                    mobile apps are coming. stay tuned! 
+                </p>
+            </div>
         </div>
-        <div>
-            <input type="checkbox" id="inverseCheckBox" name="inverse">
-            <label for="inverse">inverse languages order</label>
+        
+        <div id='footer'>
+            oded wolff 2024<br>
+            odedwolff@gmail.com<br>
+            +972 58-4048666
         </div>
-
-        <div>
-            <input type="checkbox" id="repeatCheckBox" name="shouldRepeat">
-            <label for="inverse">repeat each sentence</label>
-        </div>
-
-        <div id="waitIndicator" class ="loader">
-
-       
-        </div>
-
-        <div id="divVerifyPlatfor" class="blockOverlay">
-            <p>
-                currently app only runs on a chorme browser on desktop systems (ie. non mobile).
-                mobile apps are coming. stay tuned! 
-            </p>
-        <div/>
-    </div>
-
-   <!--  <div id="tests">
-        <button id="send-button" onclick="testSendAjax()">Send AJAX Message</button>
-        <button id="test TTS" onclick="testTalkCycle()">test TTS</button>
-        <button id="test cycle" onclick="cycle()">test cycle</button>
-        <button id="test send post" onclick="testSendPost()">test send post</button>
-    </div> -->
-    
-
-
-
-
-    <div id="response"></div>
-
-    <!-- <script src="script.js"></script> -->
-
-    <script>
-
-        var level = 'A1';
-        var langInfo = {langName: 'italian', langCode: 'it-IT'};
-        var inverse = false; 
-        var answerLatency = 3000;
-        var maxLen = 5;
-        var shouldRepeat = false;
-        var repeatsLeft = 1; 
+        
+    <!--  <div id="tests">
+            <button id="send-button" onclick="testSendAjax()">Send AJAX Message</button>
+            <button id="test TTS" onclick="testTalkCycle()">test TTS</button>
+            <button id="test cycle" onclick="cycle()">test cycle</button>
+            <button id="test send post" onclick="testSendPost()">test send post</button>
+        </div> -->
         
 
 
-        function updateSelectionMaxLen(dropdown) {
-            maxLen = dropdown.value;
-        }
-        function updateSelectionLang(dropdown) {
-            const jsonObj = dropdown.value
-            langInfo = JSON.parse(jsonObj);
-        }
 
-        function updateSelectionLevel(dropdown) {
-            level = dropdown.value;
-        }
 
-        function updateSelectionLatency(dropdown) {
-            answerLatency = parseInt(dropdown.value);
-        }
 
-        function speak(textToSpeak, desiredLanguage, doAfter){
-            /* const textToSpeak = 'This is some text to be spoken.';
-            const desiredLanguage = 'en-US'; // Example language code (English - US) */
+        <!-- <script src="script.js"></script> -->
 
-            // Create a SpeechSynthesisUtterance object
-            const utterance = new SpeechSynthesisUtterance();
-            utterance.text = textToSpeak;
-            utterance.lang = desiredLanguage;
+        <script>
 
-            // Optionally set other properties like pitch, rate, and voice
-            // utterance.pitch = 1; // Adjust pitch (1 is default)
-            // utterance.rate = 1; // Adjust speaking rate (1 is default)
+            var level = 'A1';
+            var langInfo = {langName: 'italian', langCode: 'it-IT'};
+            var inverse = false; 
+            var answerLatency = 3000;
+            var maxLen = 5;
+            var shouldRepeat = false;
+            var repeatsLeft = 1; 
+            
 
-            // Get available voices (optional)
-            const voices = speechSynthesis.getVoices();
-           // console.log('Available voices:', voices); // You can choose a specific voice here
 
-            utterance.onend = function(event) {
-                console.log('Speech completed!');
-                doAfter();
-                // Perform any actions after speech finishes
-            };   
+            function updateSelectionMaxLen(dropdown) {
+                maxLen = dropdown.value;
+            }
+            function updateSelectionLang(dropdown) {
+                const jsonObj = dropdown.value
+                langInfo = JSON.parse(jsonObj);
+            }
 
-            // Speak the utterance
-            speechSynthesis.speak(utterance);
-        }
+            function updateSelectionLevel(dropdown) {
+                level = dropdown.value;
+            }
 
-        //with a promse 
-        function SpeakP(textToSpeak, desiredLanguage){
-            return new Promise((resolve, reject) => {
+            function updateSelectionLatency(dropdown) {
+                answerLatency = parseInt(dropdown.value);
+            }
+
+            function speak(textToSpeak, desiredLanguage, doAfter){
                 /* const textToSpeak = 'This is some text to be spoken.';
                 const desiredLanguage = 'en-US'; // Example language code (English - US) */
 
@@ -180,154 +167,183 @@
 
                 // Get available voices (optional)
                 const voices = speechSynthesis.getVoices();
-               // console.log('Available voices:', voices); // You can choose a specific voice here
+            // console.log('Available voices:', voices); // You can choose a specific voice here
 
                 utterance.onend = function(event) {
                     console.log('Speech completed!');
-                    //doAfter();
-                    resolve();
+                    doAfter();
                     // Perform any actions after speech finishes
                 };   
 
                 // Speak the utterance
                 speechSynthesis.speak(utterance);
-            });
-        }
+            }
+
+            //with a promse 
+            function SpeakP(textToSpeak, desiredLanguage){
+                return new Promise((resolve, reject) => {
+                    /* const textToSpeak = 'This is some text to be spoken.';
+                    const desiredLanguage = 'en-US'; // Example language code (English - US) */
+
+                    // Create a SpeechSynthesisUtterance object
+                    const utterance = new SpeechSynthesisUtterance();
+                    utterance.text = textToSpeak;
+                    utterance.lang = desiredLanguage;
+
+                    // Optionally set other properties like pitch, rate, and voice
+                    // utterance.pitch = 1; // Adjust pitch (1 is default)
+                    // utterance.rate = 1; // Adjust speaking rate (1 is default)
+
+                    // Get available voices (optional)
+                    const voices = speechSynthesis.getVoices();
+                // console.log('Available voices:', voices); // You can choose a specific voice here
+
+                    utterance.onend = function(event) {
+                        console.log('Speech completed!');
+                        //doAfter();
+                        resolve();
+                        // Perform any actions after speech finishes
+                    };   
+
+                    // Speak the utterance
+                    speechSynthesis.speak(utterance);
+                });
+            }
 
 
 
-        /**a cyclet for the format: stay questiotn, wait, say answer**/
-        function talkCycle(text1, text2, lang1, lang2, waitMs, atComplete){
-            SpeakP(text1, lang1).
-            then(()=>{
-                setTimeout(
-                ()=>{
-                    //SpeakP(text2,lang2).then(atComplete)
-                    SpeakP(text2,lang2).then(
-                        ()=>{
-                            if(shouldRepeat && repeatsLeft > 0 ){
-                                repeatsLeft--;
-                                talkCycle(text1, text2, lang1, lang2, waitMs, atComplete);
-                            }else{
-                                atComplete();
+            /**a cyclet for the format: stay questiotn, wait, say answer**/
+            function talkCycle(text1, text2, lang1, lang2, waitMs, atComplete){
+                SpeakP(text1, lang1).
+                then(()=>{
+                    setTimeout(
+                    ()=>{
+                        //SpeakP(text2,lang2).then(atComplete)
+                        SpeakP(text2,lang2).then(
+                            ()=>{
+                                if(shouldRepeat && repeatsLeft > 0 ){
+                                    repeatsLeft--;
+                                    talkCycle(text1, text2, lang1, lang2, waitMs, atComplete);
+                                }else{
+                                    atComplete();
+                                }
                             }
-                        }
-                    )
-                }, waitMs 
-             )}
-            ); 
-        }
-
-        
-
-        function startSeq(){
-            console.log("click start");
-            document.getElementById("startSeq").setAttribute("disabled", true);
-            document.getElementById("endSeq").removeAttribute("disabled");
-
-           /*  document.getElementById("startSeq").classList.add("disabled-button");
-            document.getElementById("endSeq").classList.remove("disabled-button"); */
-            seqOn = true;
-            nextCycle();
-
-        }
-
-
-        function endSeq(){
-            console.log("click end");
-            document.getElementById("endSeq").setAttribute("disabled", true);
-            seqOn = false;
-        }
-        
-        function handleAPIResponse(response, afterCallBack){
-            var resObj = JSON.parse(response);
-            const genText = resObj['genText'];
-            const translation = resObj['translation'];
-            //talkCycle(genText, translation, 'it-IT', 'en-US', 3000, afterCallBack);
-            if(inverse){
-                talkCycle(translation, genText, 'en-US', langInfo.langCode, answerLatency, afterCallBack);
-
-            }else{
-                talkCycle(genText, translation, langInfo.langCode, 'en-US', answerLatency, afterCallBack);
+                        )
+                    }, waitMs 
+                )}
+                ); 
             }
-        }
-        
-        
-        function cycle(after) {
-            const xhr = new XMLHttpRequest();
-            const data = {lang:langInfo.langName, level:level, maxLen: maxLen};
-            xhr.open('POST', '/simpleCycle', true); // Replace with your actual endpoint
-            xhr.setRequestHeader("Content-Type", "application/json"); // Set header for JSON data
 
-            xhr.onload = function () {
-                setLoaderVisible(false);
-                if (xhr.status === 200) {
-                    //responseDiv.textContent = xhr.responseText;
-                    console.log(xhr.responseText);
-                    handleAPIResponse(xhr.responseText, after);
-                    //after();
-                } else {
-                    //responseDiv.textContent = 'Error: ' + xhr.statusText;
-                    console.log( 'Error: ' + xhr.statusText);
-                    console.log( 'skipping to next cycle');
-                    nextCycle();
+            
+
+            function startSeq(){
+                console.log("click start");
+                document.getElementById("startSeq").setAttribute("disabled", true);
+                document.getElementById("endSeq").removeAttribute("disabled");
+
+            /*  document.getElementById("startSeq").classList.add("disabled-button");
+                document.getElementById("endSeq").classList.remove("disabled-button"); */
+                seqOn = true;
+                nextCycle();
+
+            }
+
+
+            function endSeq(){
+                console.log("click end");
+                document.getElementById("endSeq").setAttribute("disabled", true);
+                seqOn = false;
+            }
+            
+            function handleAPIResponse(response, afterCallBack){
+                var resObj = JSON.parse(response);
+                const genText = resObj['genText'];
+                const translation = resObj['translation'];
+                //talkCycle(genText, translation, 'it-IT', 'en-US', 3000, afterCallBack);
+                if(inverse){
+                    talkCycle(translation, genText, 'en-US', langInfo.langCode, answerLatency, afterCallBack);
+
+                }else{
+                    talkCycle(genText, translation, langInfo.langCode, 'en-US', answerLatency, afterCallBack);
                 }
-            };
-            xhr.send(JSON.stringify(data));
-            setLoaderVisible(true);
-
-        }
-
-        function nextCycle(){
-            repeatsLeft = 1;
-            if(seqOn){
-                    console.log("----");
-                    setTimeout(cycle.bind(null, nextCycle), 200);
-            }else{
-                document.getElementById("startSeq").removeAttribute("disabled");
             }
-           
-        }
+            
+            
+            function cycle(after) {
+                const xhr = new XMLHttpRequest();
+                const data = {lang:langInfo.langName, level:level, maxLen: maxLen};
+                xhr.open('POST', '/simpleCycle', true); // Replace with your actual endpoint
+                xhr.setRequestHeader("Content-Type", "application/json"); // Set header for JSON data
 
-        function setLoaderVisible(flag){
-            var elm = document.getElementById("waitIndicator");
-            if (flag) {
-                elm.style.visibility = "visible";
-            } else {
-                elm.style.visibility = "hidden";
+                xhr.onload = function () {
+                    setLoaderVisible(false);
+                    if (xhr.status === 200) {
+                        //responseDiv.textContent = xhr.responseText;
+                        console.log(xhr.responseText);
+                        handleAPIResponse(xhr.responseText, after);
+                        //after();
+                    } else {
+                        //responseDiv.textContent = 'Error: ' + xhr.statusText;
+                        console.log( 'Error: ' + xhr.statusText);
+                        console.log( 'skipping to next cycle');
+                        nextCycle();
+                    }
+                };
+                xhr.send(JSON.stringify(data));
+                setLoaderVisible(true);
+
             }
-        }
+
+            function nextCycle(){
+                repeatsLeft = 1;
+                if(seqOn){
+                        console.log("----");
+                        setTimeout(cycle.bind(null, nextCycle), 200);
+                }else{
+                    document.getElementById("startSeq").removeAttribute("disabled");
+                }
+            
+            }
+
+            function setLoaderVisible(flag){
+                var elm = document.getElementById("waitIndicator");
+                if (flag) {
+                    elm.style.visibility = "visible";
+                } else {
+                    elm.style.visibility = "hidden";
+                }
+            }
 
 
-        function isChromeDesktop() {
-            // Check if the browser is Chrome
-            const isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
-            // Check if the device is a desktop
-            const isDesktop = !/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-    
-            return isChrome && isDesktop;
-        }
+            function isChromeDesktop() {
+                // Check if the browser is Chrome
+                const isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
+                // Check if the device is a desktop
+                const isDesktop = !/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        
+                return isChrome && isDesktop;
+            }
 
-        if (!isChromeDesktop()){
-            document.getElementById('divVerifyPlatfor').classList.add('visible');
-        }
+            if (!isChromeDesktop()){
+                document.getElementById('divVerifyPlatfor').classList.add('visible');
+            }
 
-        const checkbox = document.getElementById("inverseCheckBox");
-        checkbox.addEventListener("change", function() {
-            inverse = checkbox.checked;
-            console.log("Inverse new state: " + inverse);
-            // Perform actions based on the checkbox state (isActive)
-        });
+            const checkbox = document.getElementById("inverseCheckBox");
+            checkbox.addEventListener("change", function() {
+                inverse = checkbox.checked;
+                console.log("Inverse new state: " + inverse);
+                // Perform actions based on the checkbox state (isActive)
+            });
 
-        const checkboxRepeat = document.getElementById("repeatCheckBox");
-        checkboxRepeat.addEventListener("change", function() {
-            shouldRepeat = checkboxRepeat.checked;
-            console.log("should repeat new state: " + inverse);
-            // Perform actions based on the checkbox state (isActive)
-        });
+            const checkboxRepeat = document.getElementById("repeatCheckBox");
+            checkboxRepeat.addEventListener("change", function() {
+                shouldRepeat = checkboxRepeat.checked;
+                console.log("should repeat new state: " + inverse);
+                // Perform actions based on the checkbox state (isActive)
+            });
 
 
-    </script>
-</body>
+        </script>
+    </body>
 
 </html>
