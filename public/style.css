@@ -129,6 +129,7 @@ body {
     text-align: center;
     background-color: #49a9db;
     padding: 11px;
+    height: 15vh;
 }
 
 #header > h3{
@@ -151,6 +152,7 @@ body {
     background-position: center;
     background-repeat: no-repeat;
     color: white;
+    height: 65vh;
 
 }
 
@@ -180,4 +182,5 @@ body {
     text-align: center;
     height: 200px;
     padding-top: 20px;
+    height: 20vh;
 }
