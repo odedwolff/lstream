@@ -5,8 +5,15 @@ body {
     padding: 0;
     background-color: #f0f9ff; /* Light blue background */
     color: #333; /* Dark text for contrast */
+    overflow: hidden;
   }
   
+  #container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh; /* Set container height to 100vh */
+  }
+
   /* Headings */
   h1, h2, h3 {
     margin: 1rem 0;
@@ -136,6 +143,7 @@ body {
     font-size: small;
     color: white;
     margin: 0px;
+    width: 100vw;
 }
 
 #header > h1{
@@ -182,5 +190,10 @@ body {
     text-align: center;
     height: 200px;
     padding-top: 20px;
-    height: 20vh;
+    /*height: 20vh;*/
+    flex:1;
+}
+
+.mainHorSection{
+    flex-shrink: 0
 }

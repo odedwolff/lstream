@@ -9,116 +9,109 @@
     </head>
 
     <body>
-        <div id='header'>
-            <h1>
-                LStream
-            </h1> 
-            <h3>
-                THE LANGUAGE TALK LOOP 
-            </h3>   
-        </div>
-        <div id="mainContentBackGround">
-
-        </div>
-        <div id="mainCyclePanel">
-            <div>
-                <label for="dropDownLang">Select Language:</label>
-                <select name="languages" id="dropDownLang" onchange="updateSelectionLang(this)">
-                    <option value='{"langName": "russian", "langCode": "ru-RU"}'>russian</option>
-                    <option value='{"langName": "italian", "langCode": "it-IT"}' selected>italian</option>
-                    <option value='{"langName": "german", "langCode": "de-DE"}'>german</option>
-                    <option value='{"langName": "french", "langCode": "fr-FR"}'>french</option>
-                    <option value='{"langName": "spanish", "langCode": "es-ES"}'>spanish</option>
-                    <option value='{"langName": "portuguese ", "langCode": "pt-BR"}'>portuguese</option>
-
-                </select>
+        <div id="container">
+            <div id='header' class="mainHorSection">
+                <h1>
+                    LStream
+                </h1>
+                <h3>
+                    THE LANGUAGE TALK LOOP
+                </h3>
             </div>
-            <div>
-                <label for="dropDownLevel">Level:</label>
-                <select name="level" id="dropDownLevel" onchange="updateSelectionLevel(this)">
-                    <option value="A1" selected>A1</option>
-                    <option value="A2">A2</option>
-                    <option value="B1">B1</option>
-                    <option value="B2">B2</option>
-                    <option value="C1">C1</option>
-                </select>
-            </div>
-
-            <div>
-                <label for="dropDownMaxLen">Sentence Max Length:</label>
-                <select name="level" id="dropDownMaxLen" onchange="updateSelectionMaxLen(this)">
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5" selected>5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                    <option value="8">8</option>
-                    <option value="9">9</option>
-                    <option value="10">10</option>
-                    <option value="11">11</option>
-
-                </select>
-            </div>
-
-            <div>
-                <label for="dropDownLatency">Time To Respond:</label>
-                <select name="level" id="dropDownLatency" onchange="updateSelectionLatency(this)">
-                    <option value="2000">2 sec</option>
-                    <option value="3000" selected>3 sec</option>
-                    <option value="4000">4 sec</option>
-                    <option value="5000">5 sec</option>
-                    <option value="6000">6 sec</option>
-                    <option value="7000">7 sec</option>
-                    <option value="8000">8 sec</option>
-
-                </select>
-            </div>
-
-            
-
-            <div>
-                <button id="startSeq" onclick="startSeq()">startSequence</button>
-                <button id="endSeq" onclick="endSeq()" disabled>end sequence</button>
-            </div>
-            <div>
-                <input type="checkbox" id="inverseCheckBox" name="inverse">
-                <label for="inverse">inverse languages order</label>
-            </div>
-
-            <div>
-                <input type="checkbox" id="repeatCheckBox" name="shouldRepeat">
-                <label for="inverse">repeat each sentence</label>
-            </div>
-
-            <div id="waitIndicator" class ="loader">
-
+            <div id="mainContentBackGround" class="mainHorSection">
         
             </div>
-
-            <div id="divVerifyPlatfor" class="blockOverlay">
-                <p>
-                    currently app only runs on a chorme browser on desktop systems (ie. non mobile).
-                    mobile apps are coming. stay tuned! 
-                </p>
+            <div id="mainCyclePanel">
+                <div>
+                    <label for="dropDownLang">Select Language:</label>
+                    <select name="languages" id="dropDownLang" onchange="updateSelectionLang(this)">
+                        <option value='{"langName": "russian", "langCode": "ru-RU"}'>russian</option>
+                        <option value='{"langName": "italian", "langCode": "it-IT"}' selected>italian</option>
+                        <option value='{"langName": "german", "langCode": "de-DE"}'>german</option>
+                        <option value='{"langName": "french", "langCode": "fr-FR"}'>french</option>
+                        <option value='{"langName": "spanish", "langCode": "es-ES"}'>spanish</option>
+                        <option value='{"langName": "portuguese ", "langCode": "pt-BR"}'>portuguese</option>
+        
+                    </select>
+                </div>
+                <div>
+                    <label for="dropDownLevel">Level:</label>
+                    <select name="level" id="dropDownLevel" onchange="updateSelectionLevel(this)">
+                        <option value="A1" selected>A1</option>
+                        <option value="A2">A2</option>
+                        <option value="B1">B1</option>
+                        <option value="B2">B2</option>
+                        <option value="C1">C1</option>
+                    </select>
+                </div>
+        
+                <div>
+                    <label for="dropDownMaxLen">Sentence Max Length:</label>
+                    <select name="level" id="dropDownMaxLen" onchange="updateSelectionMaxLen(this)">
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5" selected>5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+        
+                    </select>
+                </div>
+        
+                <div>
+                    <label for="dropDownLatency">Time To Respond:</label>
+                    <select name="level" id="dropDownLatency" onchange="updateSelectionLatency(this)">
+                        <option value="2000">2 sec</option>
+                        <option value="3000" selected>3 sec</option>
+                        <option value="4000">4 sec</option>
+                        <option value="5000">5 sec</option>
+                        <option value="6000">6 sec</option>
+                        <option value="7000">7 sec</option>
+                        <option value="8000">8 sec</option>
+        
+                    </select>
+                </div>
+        
+        
+        
+                <div>
+                    <button id="startSeq" onclick="startSeq()">startSequence</button>
+                    <button id="endSeq" onclick="endSeq()" disabled>end sequence</button>
+                </div>
+                <div>
+                    <input type="checkbox" id="inverseCheckBox" name="inverse">
+                    <label for="inverse">inverse languages order</label>
+                </div>
+        
+                <div>
+                    <input type="checkbox" id="repeatCheckBox" name="shouldRepeat">
+                    <label for="inverse">repeat each sentence</label>
+                </div>
+        
+                <div id="waitIndicator" class="loader">
+        
+        
+                </div>
+        
+                <div id="divVerifyPlatfor" class="blockOverlay">
+                    <p>
+                        currently app only runs on a chorme browser on desktop systems (ie. non mobile).
+                        mobile apps are coming. stay tuned!
+                    </p>
+                </div>
             </div>
+        
+            <div id='footer'class="mainHorSection">
+                oded wolff 2024<br>
+                odedwolff@gmail.com<br>
+                +972 58-4048666
+            </div>
+        
         </div>
-        
-        <div id='footer'>
-            oded wolff 2024<br>
-            odedwolff@gmail.com<br>
-            +972 58-4048666
-        </div>
-        
-    <!--  <div id="tests">
-            <button id="send-button" onclick="testSendAjax()">Send AJAX Message</button>
-            <button id="test TTS" onclick="testTalkCycle()">test TTS</button>
-            <button id="test cycle" onclick="cycle()">test cycle</button>
-            <button id="test send post" onclick="testSendPost()">test send post</button>
-        </div> -->
-        
-
-
 
 
 
