@@ -1,6 +1,6 @@
 /* Base styles */
 body {
-    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    font-family: 'Garamond', serif; 
     margin: 0;
     padding: 0;
     background-color: #f0f9ff; /* Light blue background */
@@ -164,21 +164,22 @@ body {
 
 }
 
-#mainCyclePanel{
-    top: 100px;
-    left: 300px;    
+#mainCyclePanel {
+    top: 20%;
+    left: 30%;
     height: 400px;
-    width: 300px;
+    width: 40%;
     background-color: #000000b3;
     position: absolute;
-    padding-top:20px;
+    padding-top: 30px;
     color: white;
     margin: auto;
     text-align: center;
 }
 
+
 #mainCyclePanel > *{
-    margin-top:10px;
+    margin-top:20px;
     margin-left:20px;
 }
 
