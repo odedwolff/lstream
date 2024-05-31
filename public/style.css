@@ -3,7 +3,7 @@ body {
     font-family:  Consolas, "Courier New", monospace; 
     margin: 0;
     padding: 0;
-    background-color: #f0f9ff; /* Light blue background */
+    background-color: #000000; /* Light blue background */
     color: #333; /* Dark text for contrast */
     overflow: hidden;
   }
@@ -137,6 +137,7 @@ body {
     background-color: #49a9db;
     padding: 11px;
     height: 15vh;
+    padding-top:  20px;;
 }
 
 #header > h3{
@@ -144,6 +145,7 @@ body {
     color: white;
     margin: 0px;
     width: 100vw;
+   
 }
 
 #header > h1{
@@ -203,6 +205,10 @@ body {
 select {
     background: #000000;
     color: #3f49e9;
+}
+
+#divStartStop{
+    margin-top: 40px;
 }
 
 
