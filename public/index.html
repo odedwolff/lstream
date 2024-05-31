@@ -12,8 +12,8 @@
         <div id="container">
             <div id='header' class="mainHorSection">
                 <h1>
-                    LStream
-                </h1>
+                    SISTOR 
+                </h1>   
                 <h3>
                     THE LANGUAGE TALK LOOP
                 </h3>
@@ -23,7 +23,7 @@
             </div>
             <div id="mainCyclePanel">
                 <div>
-                    <label for="dropDownLang">Select Language:</label>
+                    <label for="dropDownLang">select language</label>
                     <select name="languages" id="dropDownLang" onchange="updateSelectionLang(this)">
                         <option value='{"langName": "russian", "langCode": "ru-RU"}'>russian</option>
                         <option value='{"langName": "italian", "langCode": "it-IT"}' selected>italian</option>
@@ -35,7 +35,7 @@
                     </select>
                 </div>
                 <div>
-                    <label for="dropDownLevel">Level:</label>
+                    <label for="dropDownLevel">level:</label>
                     <select name="level" id="dropDownLevel" onchange="updateSelectionLevel(this)">
                         <option value="A1" selected>A1</option>
                         <option value="A2">A2</option>
@@ -46,7 +46,7 @@
                 </div>
         
                 <div>
-                    <label for="dropDownMaxLen">Sentence Max Length:</label>
+                    <label for="dropDownMaxLen">sentence max length:</label>
                     <select name="level" id="dropDownMaxLen" onchange="updateSelectionMaxLen(this)">
                         <option value="2">2</option>
                         <option value="3">3</option>
@@ -63,7 +63,7 @@
                 </div>
         
                 <div>
-                    <label for="dropDownLatency">Time To Respond:</label>
+                    <label for="dropDownLatency">time to respond:</label>
                     <select name="level" id="dropDownLatency" onchange="updateSelectionLatency(this)">
                         <option value="2000">2 sec</option>
                         <option value="3000" selected>3 sec</option>
@@ -75,22 +75,30 @@
         
                     </select>
                 </div>
-        
-        
+
+                <div>
+                    <label for="dropDownOrder">language order:</label>
+                    <select name="level" id="dropDownOrder" onchange="updateOrder(this)">
+                        <option value="1" selected>source, target</option>
+                        <option value="2">target, source</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label for="dropDownRepeat">repeatition:</label>
+                    <select name="level" id="dropDownRepeat" onchange="updateRepeat(this)">
+                        <option value="1" selected>once</option>
+                        <option value="2">twice</option>
+                    </select>
+                </div>
+
+
         
                 <div>
-                    <button id="startSeq" onclick="startSeq()">startSequence</button>
-                    <button id="endSeq" onclick="endSeq()" disabled>end sequence</button>
+                    <button id="startSeq" onclick="startSeq()">START</button>
+                    <button id="endSeq" onclick="endSeq()" disabled>STOP</button>
                 </div>
-                <div>
-                    <input type="checkbox" id="inverseCheckBox" name="inverse">
-                    <label for="inverse">inverse languages order</label>
-                </div>
-        
-                <div>
-                    <input type="checkbox" id="repeatCheckBox" name="shouldRepeat">
-                    <label for="inverse">repeat each sentence</label>
-                </div>
+                
         
                 <div id="waitIndicator" class="loader">
         
@@ -144,6 +152,25 @@
             function updateSelectionLatency(dropdown) {
                 answerLatency = parseInt(dropdown.value);
             }
+
+            function updateOrder(dropdown) {
+                if (1 == parseInt(dropdown.value)){
+                    inverse = false;
+                }else{
+                    inverse = true; 
+                }
+            }
+
+            function updateRepeat(dropdown) {
+                if (1 == parseInt(dropdown.value)){
+                    shouldRepeat = false; 
+                }else{
+                    shouldRepeat = true; 
+                }
+            }
+
+
+            
 
             function speak(textToSpeak, desiredLanguage, doAfter){
                 /* const textToSpeak = 'This is some text to be spoken.';
@@ -321,20 +348,18 @@
                 document.getElementById('divVerifyPlatfor').classList.add('visible');
             }
 
-            const checkbox = document.getElementById("inverseCheckBox");
+           /*  const checkbox = document.getElementById("inverseCheckBox");
             checkbox.addEventListener("change", function() {
                 inverse = checkbox.checked;
                 console.log("Inverse new state: " + inverse);
-                // Perform actions based on the checkbox state (isActive)
             });
 
             const checkboxRepeat = document.getElementById("repeatCheckBox");
             checkboxRepeat.addEventListener("change", function() {
                 shouldRepeat = checkboxRepeat.checked;
                 console.log("should repeat new state: " + inverse);
-                // Perform actions based on the checkbox state (isActive)
             });
-
+ */
 
         </script>
     </body>

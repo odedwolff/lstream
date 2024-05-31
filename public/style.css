@@ -1,6 +1,6 @@
 /* Base styles */
 body {
-    font-family: 'Garamond', serif; 
+    font-family:  Consolas, "Courier New", monospace; 
     margin: 0;
     padding: 0;
     background-color: #f0f9ff; /* Light blue background */
@@ -61,7 +61,7 @@ body {
   
   /* Other controls (buttons, etc.) */
   button, input[type="button"], input[type="submit"] {
-    background-color: #337ab7;
+    background-color: #337ab7; 
     color: white;
     border: none;
     padding: 10px 20px;
@@ -198,3 +198,11 @@ body {
 .mainHorSection{
     flex-shrink: 0
 }
+
+
+select {
+    background: #000000;
+    color: #3f49e9;
+}
+
+
