@@ -23,7 +23,7 @@
             </div>
             <div id="mainCyclePanel">
                 <div>
-                    <label for="dropDownLang">select language</label>
+                    <label for="dropDownLang">practice language</label>
                     <select name="languages" id="dropDownLang" onchange="updateSelectionLang(this)">
                         <option value='{"langName": "russian", "langCode": "ru-RU"}'>russian</option>
                         <option value='{"langName": "italian", "langCode": "it-IT"}' selected>italian</option>
@@ -79,18 +79,30 @@
                 <div>
                     <label for="dropDownOrder">language order:</label>
                     <select name="level" id="dropDownOrder" onchange="updateOrder(this)">
-                        <option value="1" selected>source, target</option>
-                        <option value="2">target, source</option>
+                        <option value="1" selected>foreign, english</option>
+                        <option value="2">english, foreign</option>
                     </select>
                 </div>
 
                 <div>
-                    <label for="dropDownRepeat">repeatition:</label>
+                    <label for="dropDownRepeat">repetition:</label>
                     <select name="level" id="dropDownRepeat" onchange="updateRepeat(this)">
                         <option value="1" selected>once</option>
                         <option value="2">twice</option>
                     </select>
                 </div>
+
+                <div>
+                    <label for="dropDownSpeechRate">speech rate</label>
+                    <select name="rate" id="dropDownSpeechRate" onchange="updateSelectionRate(this)">
+                        <option value="1" selecte> normal</option>
+                        <option value="0.75" >3/4</option>
+                        <option value="0.5">1/2</option>
+                        <option value="0.25">1/4</option>
+
+                    </select>
+                </div>
+
 
 
         
@@ -133,13 +145,16 @@
             var answerLatency = 3000;
             var maxLen = 5;
             var shouldRepeat = false;
-            var repeatsLeft = 1; 
+            var repeatsLeft = 1;
+            var speechRate = 1.0;  
             
 
 
             function updateSelectionMaxLen(dropdown) {
                 maxLen = dropdown.value;
             }
+
+
             function updateSelectionLang(dropdown) {
                 const jsonObj = dropdown.value
                 langInfo = JSON.parse(jsonObj);
@@ -160,6 +175,12 @@
                     inverse = true; 
                 }
             }
+
+            function updateSelectionRate(dropdown) {
+                speechRate = parseFloat(dropdown.value);   
+            }
+
+            
 
             function updateRepeat(dropdown) {
                 if (1 == parseInt(dropdown.value)){
@@ -200,7 +221,7 @@
             }
 
             //with a promse 
-            function SpeakP(textToSpeak, desiredLanguage){
+            function SpeakP(textToSpeak, desiredLanguage, rate){
                 return new Promise((resolve, reject) => {
                     /* const textToSpeak = 'This is some text to be spoken.';
                     const desiredLanguage = 'en-US'; // Example language code (English - US) */
@@ -212,7 +233,7 @@
 
                     // Optionally set other properties like pitch, rate, and voice
                     // utterance.pitch = 1; // Adjust pitch (1 is default)
-                    // utterance.rate = 1; // Adjust speaking rate (1 is default)
+                    utterance.rate = rate; // Adjust speaking rate (1 is default)
 
                     // Get available voices (optional)
                     const voices = speechSynthesis.getVoices();
@@ -233,17 +254,17 @@
 
 
             /**a cyclet for the format: stay questiotn, wait, say answer**/
-            function talkCycle(text1, text2, lang1, lang2, waitMs, atComplete){
-                SpeakP(text1, lang1).
+            function talkCycle(text1, text2, lang1, lang2, rate1, rate2,  waitMs, atComplete){
+                SpeakP(text1, lang1, rate1).
                 then(()=>{
                     setTimeout(
                     ()=>{
                         //SpeakP(text2,lang2).then(atComplete)
-                        SpeakP(text2,lang2).then(
+                        SpeakP(text2,lang2, rate2).then(
                             ()=>{
                                 if(shouldRepeat && repeatsLeft > 0 ){
                                     repeatsLeft--;
-                                    talkCycle(text1, text2, lang1, lang2, waitMs, atComplete);
+                                    talkCycle(text1, text2, lang1, lang2, rate1, rate2,  waitMs, atComplete);
                                 }else{
                                     atComplete();
                                 }
@@ -281,10 +302,10 @@
                 const translation = resObj['translation'];
                 //talkCycle(genText, translation, 'it-IT', 'en-US', 3000, afterCallBack);
                 if(inverse){
-                    talkCycle(translation, genText, 'en-US', langInfo.langCode, answerLatency, afterCallBack);
+                    talkCycle(translation, genText, 'en-US', langInfo.langCode, 1, speechRate ,answerLatency, afterCallBack);
 
                 }else{
-                    talkCycle(genText, translation, langInfo.langCode, 'en-US', answerLatency, afterCallBack);
+                    talkCycle(genText, translation, langInfo.langCode, 'en-US', speechRate, 1, answerLatency, afterCallBack);
                 }
             }
             
