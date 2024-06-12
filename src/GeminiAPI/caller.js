@@ -93,57 +93,87 @@ function randPerson(){
     return "third";
 }
 
-function prompterOld(level, language) {
 
-    const part1Old = `please write a random sentence in ${language}. this could be a descriptive sentence,
-    a part of a conversation or of a dialogue.`
-    const part1 = `please write a random sentence in ${language} around the theme: ${randTheme()}. this could be a descriptive sentence,
-    a part of a conversation or of a dialogue. use the ${randPerson()} person. `
-    var part2Old;
+
+
+function levelDescription(level){
+    var out;
     switch (level) {
-
-        case "a0", "A0":
-            part2 = ` the length of the sentence should be 3 to 5 words, 
-            and it should be very easy language for people who just started learning ${language}.`;
-            break;
         case "a1", "A1":
-            part2 = ` the length of the sentence should be 3 to 6 words, 
-            and it should be very easy language for people who speak very litte ${language}.`;
+            out = ' 1 out of 5 ';;
             break;
         case "a2", "A2":
-            part2 = ` the length of the sentence should be 4 to 8 words, 
-           and it should be easy language for people who speak only litte ${language}.`;
+            out = ' 2 out of 5 ';
             break;
         case "b1", "B1":
-            part2 = ` the length of the sentence should be 4 to 8 words, 
-            and it should be simple language for people who speak intermediate ${language}.`;
+            out = ' 3 out of 5 ';
             break;
         case "b2", "B2":
-            part2 = ` the length of the sentence should be 5 to 10 words, 
-            and it should be normal language for people who speak intermediate ${language}.`;
+            out = '4 out of 5 ';
             break;
         case "c1", "C1":
-            part2 = ` the length of the sentence should be 5 to 13 words, 
-            and it should be normal language for people who speak good ${language}, but bellow native level`;
+            out = ' 5 out of 5';
             break;
 
         default:
-            resultString = "Default string (if no case matches)";
+            out = " medium well done";
 
     }
-    const part3 = " the response should only contain the generate text, with no added comments or a translation. ";
-    const prompt = part1 + part2 + part3;
-    console.log(`prompt = ${prompt}`);
-    return prompt;
+    return "the complexity of the text should match a proficiency of " + out; 
 }
 
-function prompter(level, language, maxLen){
-    const prompt = `please write a random sentence in ${language}, at level ${level}. it should be related somehow to ${randTheme()}
+function levelDescription2(level){
+    var out;
+    switch (level) {
+        case "a1", "A1":
+            out = ' use only words from the list of 100 most frequent words in the language.';
+            break;
+        case "a2", "A2":
+            out = ' use only words from the list of 200 most frequent words in the language.';
+            break;
+        case "b1", "B1":
+            out = ' use only words from the list of 500 most frequent words in the language.';
+            break;
+        case "b2", "B2":
+            out = ' use only words from the list of 1000 most frequent words in the language.';
+            break;
+        case "c1", "C1":
+            out = ' Use words and grammar suitable for advanced learners of the language';
+            break;
+
+        default:
+            out = " medium well done";
+
+    }
+    return out; 
+}
+
+function prompterUntilJune9(level, language, maxLen){
+    const levelDesc = levelDescription(level);
+
+    const prompt = `please write a random sentence in ${language}, at Proficiency level ${levelDesc}. it should be related somehow to the theme "${randTheme()}"
      and should be in ${randPerson()} person, and no longer than ${maxLen} words. 
      please do not include in your reply any comments or translation, just the raw 
      generated sentence  `;
      console.log(`prompt = ${prompt}`);
      return prompt;
+
+ }
+
+ function prompter(level, language, maxLen){
+    //const levelDesc = levelDescription(level);
+    const profPhrase = ` Use words and grammar suitable for Proficiency ${level}`;
+    //const profPhrase = levelDescription2(level);
+
+    const prompt = `please write a random practice sentence for ${language} learners. 
+    ${profPhrase}.
+     it should be related somehow to the theme "${randTheme()}", and should be in ${randPerson()} person, 
+     and no longer than ${maxLen} words. 
+     please do not include in your reply any comments or translation, just the raw 
+     generated sentence  `;
+     console.log(`prompt = ${prompt}`);
+     return prompt;
+
  }
 
 
