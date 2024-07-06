@@ -16,21 +16,17 @@ console.log(`model = ${JSON.stringify(model)}`);
 
 
 
-const level2text = {
-    A1:"please write a random sentence in italian. this could be a descriptive sentence, a part of a conversation or a dialogue. the length of the sentence should be 6 to 10 words, and it should be very easy language for people who speak some italian at beginner-intermediate level"
-}
-
-
 
 async function simpleCycleTest(language, level, maxLen) {
     // For text-only input, use the gemini-pro model
     var genText = "gen text pre";
     var retObj = null; 
 
-    const prompt1_v1 = "please write a random short sentence, no longer than 7 words in " + language + " for language students in level " + level +
-        "please make sure to only include the generated text in " + language + " without translation";
+   // const prompt1 = prompter(level, language, maxLen);
+    const prompt1 = prompter2Themes(level, language, maxLen);
 
-    const prompt1 = prompter(level, language, maxLen);
+    
+    
 
     const result = await model.generateContent(prompt1);
     const response = await result.response;
@@ -96,31 +92,7 @@ function randPerson(){
 
 
 
-function levelDescription(level){
-    var out;
-    switch (level) {
-        case "a1", "A1":
-            out = ' 1 out of 5 ';;
-            break;
-        case "a2", "A2":
-            out = ' 2 out of 5 ';
-            break;
-        case "b1", "B1":
-            out = ' 3 out of 5 ';
-            break;
-        case "b2", "B2":
-            out = '4 out of 5 ';
-            break;
-        case "c1", "C1":
-            out = ' 5 out of 5';
-            break;
 
-        default:
-            out = " medium well done";
-
-    }
-    return "the complexity of the text should match a proficiency of " + out; 
-}
 
 function levelDescription2(level){
     var out;
@@ -148,22 +120,61 @@ function levelDescription2(level){
     return out; 
 }
 
-function prompterUntilJune9(level, language, maxLen){
-    const levelDesc = levelDescription(level);
+function targetLength(level){
+    var range;
+    switch (level) {
+        case "a1", "A1":
+            range = [3,5]
+            break;
+        case "a2", "A2":
+            range = [3,6]
+        case "b1", "B1":
+            range = [4,7]
+            break;
+        case "b2", "B2":
+            range = [5,7]
+            break;
+        case "c1", "C1":
+            range = [5,8]
+            break;
 
-    const prompt = `please write a random sentence in ${language}, at Proficiency level ${levelDesc}. it should be related somehow to the theme "${randTheme()}"
-     and should be in ${randPerson()} person, and no longer than ${maxLen} words. 
-     please do not include in your reply any comments or translation, just the raw 
-     generated sentence  `;
-     console.log(`prompt = ${prompt}`);
-     return prompt;
+        default:
+            range = [4,7];
 
- }
+    }
+    const n2 = range[1];
+    const n1 = range[0];
+    return n1 + Math.floor(Math.random() * (n2 - n1 + 1));
+}
+
+function maxLength(level){
+    var out;
+    switch (level) {
+        case "a1", "A1":
+            out = 4;
+            break;
+        case "a2", "A2":
+            out = 5; 
+        case "b1", "B1":
+            out = 6;
+            break;
+        case "b2", "B2":
+            out = 7;
+            break;
+        case "c1", "C1":
+            out = 9;
+            break;
+
+        default:
+            out = 5;
+
+    }
+    return out; 
+}
+
 
  function prompter(level, language, maxLen){
-    //const levelDesc = levelDescription(level);
     const profPhrase = ` Use words and grammar suitable for Proficiency ${level}`;
-    //const profPhrase = levelDescription2(level);
 
     const prompt = `please write a random practice sentence for ${language} learners. 
     ${profPhrase}.
@@ -175,6 +186,64 @@ function prompterUntilJune9(level, language, maxLen){
      return prompt;
 
  }
+
+
+ function letterRanomizaionPhrasse(language){
+    ind1 = Math.floor(Math.random() * 25);
+    ind2 = Math.floor(Math.random() * 25);
+    return `the first word in the sentence should begin either with letter #${ind1} 
+    in the ${language} alphabet, or with letter #${ind2} from the end in the ${language} alphabet. `
+
+ }
+
+ function prompter2Themes(level, language, maxLenArg){
+    const profPhrase = ` Use words and grammar suitable for Proficiency ${level}`;
+
+    var randTheme1 = randTheme();
+    var randTheme2;
+    do {
+        randTheme2 = randTheme();
+    }while(randTheme2 === randTheme1);
+
+    const maxLenV = maxLength(level);
+
+
+    const prompt = `please generate a simple sentence in ${language} suitable for ${level} proficiency level.
+     it should be no longer than ${maxLenV} words. 
+     \n ${initialPhras(language)} \n 
+     it should be related somehow theme "${randTheme1}" and should be in ${randPerson()} person. 
+     please do not include in your reply any comments or translation, just the raw 
+     generated sentence  `;
+     console.log(`prompt = ${prompt} \n\n`);
+     return prompt;
+
+ }
+
+
+const commmonInitials = {
+    'portuguese' : ['E', 'A', 'O', 'I', 'U', 'S', 'C', 'M', 'N', 'D', 'F'],
+    'spanish' : ['A', 'E', 'O', 'I', 'U', 'S', 'C', 'P', 'H', 'L', 'R'],
+    'italian' : ['A', 'E', 'I', 'O', 'U', 'F', 'L', 'M', 'N', 'P', 'R', 'S', 'T'], 
+    'german' : ['E', 'N', 'I', 'S', 'B', 'F', 'D', 'M', 'K', 'L'], 
+    'russian' : ['О', 'И', 'А', 'П', 'С', 'Н', 'В', 'Т', 'К', 'М']
+}
+
+const RANDOMIZE_BY_INITAL_RATE = 0.6;
+
+function initialPhras(language){
+    language = language.toLowerCase();
+    if(!language in commmonInitials){
+        console.log(`ERROR!! language ${language} not found in commmonInitials`);
+        return "";
+    }
+    if(Math.random() > RANDOMIZE_BY_INITAL_RATE){
+        console.log(`sentenced not randomized by initals`);
+        return "";
+    }
+    const langComInits = commmonInitials[language];
+    const randomIndex = Math.floor(Math.random() * langComInits.length);
+    return `the sentence should start with a word whose first letter is ${langComInits[randomIndex]}`
+}
 
 
 module.exports = {
