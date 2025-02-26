@@ -36,7 +36,13 @@ async function simpleCycleTest(language, level, maxLen) {
     genText = response.text();
     console.log("generated text +" + genText);
 
-    const promtp2 = "please translate following sentence from " + language + " to english:" + genText;
+    //const promtp2 = "please translate following sentence from " + language + " to english:" + genText;
+    //const promtp2 = "please translate following sentence from " + language + " to english: '" + genText + 
+     //"'.  (end of text to translate) do not give multiple options, or mention any caveates or meta data about the translation. just reply with a single translation that seems likely to you ";
+
+     const promtp2 = "Translate the following sentence from " + language + " to English: '" + genText + "'. (End of text to translate) Provide only a single translation, with no additional options, caveats, or metadata—just the translation that seems most likely to you.";
+
+
     const result2 = await model.generateContent(promtp2);
     const response2 = await result2.response;
     const trxText = response2.text();
