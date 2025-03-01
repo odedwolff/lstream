@@ -10,36 +10,31 @@ const genAI = new GoogleGenerativeAI(apiKey);
 
 console.log(`genAI = ${JSON.stringify(genAI)}`);
 
-//const model = genAI.getGenerativeModel({ model: "gemini-pro"});
 
 const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash"});
 
 
 console.log(`model = ${JSON.stringify(model)}`);
 
+//the rate of sentences with randomized initials condition  
+const RANDOMIZE_BY_INITAL_RATE = 0.6;
 
 
+//the maxLen argument is not used for now, the length is derived from the proficiancy leve
+async function talkWithAPIs(language, level) {
 
-async function simpleCycleTest(language, level, maxLen) {
-    // For text-only input, use the gemini-pro model
     var genText = "gen text pre";
     var retObj = null; 
 
    // const prompt1 = prompter(level, language, maxLen);
-    const prompt1 = prompter2Themes(level, language, maxLen);
-
-    
-    
+    const prompt1 = composePrompt(level, language);
 
     const result = await model.generateContent(prompt1);
     const response = await result.response;
     genText = response.text();
     console.log("generated text +" + genText);
 
-    //const promtp2 = "please translate following sentence from " + language + " to english:" + genText;
-    //const promtp2 = "please translate following sentence from " + language + " to english: '" + genText + 
-     //"'.  (end of text to translate) do not give multiple options, or mention any caveates or meta data about the translation. just reply with a single translation that seems likely to you ";
-
+    
      const promtp2 = "Translate the following sentence from " + language + " to English: '" + genText + "'. (End of text to translate) Provide only a single translation, with no additional options, caveats, or metadata—just the translation that seems most likely to you.";
 
 
@@ -101,34 +96,6 @@ function randPerson(){
 
 
 
-
-
-function levelDescription2(level){
-    var out;
-    switch (level) {
-        case "a1", "A1":
-            out = ' use only words from the list of 100 most frequent words in the language.';
-            break;
-        case "a2", "A2":
-            out = ' use only words from the list of 200 most frequent words in the language.';
-            break;
-        case "b1", "B1":
-            out = ' use only words from the list of 500 most frequent words in the language.';
-            break;
-        case "b2", "B2":
-            out = ' use only words from the list of 1000 most frequent words in the language.';
-            break;
-        case "c1", "C1":
-            out = ' Use words and grammar suitable for advanced learners of the language';
-            break;
-
-        default:
-            out = " medium well done";
-
-    }
-    return out; 
-}
-
 function targetLength(level){
     var range;
     switch (level) {
@@ -182,80 +149,53 @@ function maxLength(level){
 }
 
 
- function prompter(level, language, maxLen){
-    const profPhrase = ` Use words and grammar suitable for Proficiency ${level}`;
 
-    const prompt = `please write a random practice sentence for ${language} learners. 
-    ${profPhrase}.
-     it should be related somehow to the theme "${randTheme()}", and should be in ${randPerson()} person, 
-     and no longer than ${maxLen} words. 
-     please do not include in your reply any comments or translation, just the raw 
-     generated sentence  `;
-     console.log(`prompt = ${prompt}`);
-     return prompt;
-
- }
-
-
- function letterRanomizaionPhrasse(language){
-    ind1 = Math.floor(Math.random() * 25);
-    ind2 = Math.floor(Math.random() * 25);
-    return `the first word in the sentence should begin either with letter #${ind1} 
-    in the ${language} alphabet, or with letter #${ind2} from the end in the ${language} alphabet. `
-
- }
-
- function prompter2Themes(level, language, maxLenArg){
-    const profPhrase = ` Use words and grammar suitable for Proficiency ${level}`;
+ function composePrompt(level, language){
+    console.log(`entering composePrompt(${level}, ${language})`);
 
     var randTheme1 = randTheme();
-    var randTheme2;
-    do {
-        randTheme2 = randTheme();
-    }while(randTheme2 === randTheme1);
-
-    const maxLenV = maxLength(level);
-
-
-    const prompt = `please generate a simple sentence in ${language} suitable for ${level} proficiency level.
-     it should be no longer than ${maxLenV} words. 
-     \n ${initialPhras(language)} \n 
-     it should be related somehow theme "${randTheme1}" and should be in ${randPerson()} person. 
-     please do not include in your reply any comments or translation, just the raw 
-     generated sentence  `;
-     console.log(`prompt = ${prompt} \n\n`);
+    
+    const prompt = `please generate a simple sentence in ${language} suitable for ${level} proficiency level. 
+    ${initialConditionPhrase(language)} 
+    it should be related somehow theme "${randTheme1}". 
+    please do not include in your reply any comments or translation, just the raw generated sentence  `;
+    console.log(`prompt = ${prompt} \n\n`);
      return prompt;
 
  }
 
 
 const commmonInitials = {
-    'portuguese' : ['E', 'A', 'O', 'I', 'U', 'S', 'C', 'M', 'N', 'D', 'F'],
-    'spanish' : ['A', 'E', 'O', 'I', 'U', 'S', 'C', 'P', 'H', 'L', 'R'],
-    'italian' : ['A', 'E', 'I', 'O', 'U', 'F', 'L', 'M', 'N', 'P', 'R', 'S', 'T'], 
-    'german' : ['E', 'N', 'I', 'S', 'B', 'F', 'D', 'M', 'K', 'L'], 
-    'russian' : ['О', 'И', 'А', 'П', 'С', 'Н', 'В', 'Т', 'К', 'М']
+    'Spanish' : ['A', 'E', 'O', 'I', 'U', 'S', 'C', 'P', 'H', 'L', 'R'],
+    'Italian' : ['A', 'E', 'I', 'O', 'U', 'F', 'L', 'M', 'N', 'P', 'R', 'S', 'T'], 
+    'German' : ['E', 'N', 'I', 'S', 'B', 'F', 'D', 'M', 'K', 'L'], 
+    'Russian' : ['О', 'И', 'А', 'П', 'С', 'Н', 'В', 'Т', 'К', 'М'],
+    'French' : ['L', 'D', 'P', 'C', 'A', 'S', 'E', 'J', 'M', 'T', 'F'], 
+    'spoken palestinian arabic' : ['ا', 'ل', 'ب', 'م', 'ف', 'ك', 'ت', 'س', 'ع', 'ح', 'و']
+    
 }
 
-const RANDOMIZE_BY_INITAL_RATE = 0.6;
 
-function initialPhras(language){
-    language = language.toLowerCase();
+
+
+
+function initialConditionPhrase(language){
+    console.log(`entering initialConditionPhrase(${language})`)
+    //language = language.toLowerCase();
     if(!language in commmonInitials){
         console.log(`ERROR!! language ${language} not found in commmonInitials`);
         return "";
     }
     if(Math.random() > RANDOMIZE_BY_INITAL_RATE){
-        console.log(`sentenced not randomized by initals`);
+        console.log(`sentence not randomized by initals (random var under thresh)`);
         return "";
     }
     const langComInits = commmonInitials[language];
     const randomIndex = Math.floor(Math.random() * langComInits.length);
-    return `the sentence should start with a word whose first letter is ${langComInits[randomIndex]}`
+    return ` the sentence should start with a word whose first letter is ${langComInits[randomIndex]}. `
 }
 
 
 module.exports = {
-    simpleCycleTest: simpleCycleTest, 
-    prompter: prompter
+    talkWithAPIs: talkWithAPIs
 };

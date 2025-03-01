@@ -67,10 +67,11 @@ app.post('/postTest', (req, res) => {
     console.log("Received data:", data);
     const language = data.lang;
     const level = data.level;
-    const maxLen = data.maxLen;
+    //const maxLen = data.maxLen;
     //const level = 'A2';
 
-    var retObj = caller.simpleCycleTest(language, level, maxLen)
+    //maxLen is not used for now 
+    var retObj = caller.talkWithAPIs(language, level)
     retObj.then(
       function(inRet){
             res.send(JSON.stringify(inRet));
@@ -96,6 +97,6 @@ app.listen(port, () => {
 
 
 //try to keep the server from hinernating 
-setInterval(() => {
-  console.log(`--keep alive ${new Date().toLocaleDateString()}--`);
-}, 60 * 1000);
+//setInterval(() => {
+//  console.log(`--keep alive ${new Date().toLocaleDateString()}--`);
+//}, 60 * 1000);
