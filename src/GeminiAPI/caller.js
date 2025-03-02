@@ -17,7 +17,7 @@ const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash"});
 console.log(`model = ${JSON.stringify(model)}`);
 
 //the rate of sentences with randomized initials condition  
-const RANDOMIZE_BY_INITAL_RATE = 0.6;
+const RANDOMIZE_BY_INITAL_RATE = 1.0;
 
 
 //the maxLen argument is not used for now, the length is derived from the proficiancy leve

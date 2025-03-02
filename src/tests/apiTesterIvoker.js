@@ -4,7 +4,7 @@ const caller = require('../GeminiAPI/caller');
 
 //Received data: { lang: 'Italian', level: 'A1' }
 
-var retObj = caller.talkWithAPIs("spoken palestinian arabic", "b1")
+var retObj = caller.talkWithAPIs("German", "b1")
 retObj.then(
     function (inRet) {
        // res.send(JSON.stringify(inRet));
