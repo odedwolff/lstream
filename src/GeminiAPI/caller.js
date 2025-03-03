@@ -64,7 +64,7 @@ const themes = ["in and around the house", "at work", "in school", "at the unive
     " reading and writing", " freindship", " love ", " wild animals", " pets", "plants and flowers", " the weather",
     " the landscape", " the city", " the street", " the village", " computers and technology", " crafts", 
     " healthcare and medicine", " the human body ", " clothing", " traveling", " mood and emotions", 
-    " traditions and holidays"    
+    " traditions and holidays",     
 ]
 
 
@@ -192,7 +192,9 @@ function initialConditionPhrase(language){
     }
     const langComInits = commmonInitials[language];
     const randomIndex = Math.floor(Math.random() * langComInits.length);
-    return ` the sentence should start with a word whose first letter is ${langComInits[randomIndex]}. `
+    //return ` the sentence should start with a word whose first letter is ${langComInits[randomIndex]}. `
+    return ` the sentence should contain a common noun whose first letter is ${langComInits[randomIndex]}. `
+
 }
 
 

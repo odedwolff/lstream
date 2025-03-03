@@ -6,7 +6,7 @@ const genAI = new GoogleGenerativeAI(process.env.API_KEY);
 async function run() {
 
   const generationConfig = {
-    temperature: 2.0, // Set your desired temperature (range: 0.0 - 2.0 for gemini-1.5-flash)
+    temperature: 1.0, // Set your desired temperature (range: 0.0 - 2.0 for gemini-1.5-flash)
     topP: 0.5,      // Optional: controls nucleus sampling
     topK: 30,        // Optional: controls top-k sampling
     maxOutputTokens: 8192, // Optional: limits the response length
@@ -24,10 +24,20 @@ async function run() {
      please do not include in your reply any comments or translation, just the raw 
      generated sentence `
 
-  const prompt = `please generate a simple sentence in German suitable for B1 proficiency level.
+  const prompt2 = `please generate a simple sentence in German suitable for B1 proficiency level.
      it should be related somehow theme " food and drinks. the first word should start with the letter r".
      please do not include in your reply any comments or translation, just the raw 
      generated sentence `
+
+  const prompt3 = "please write a random sentence in italian in level A1"
+
+  const prompt = "please write a random sentence in italian in level a1, including a common noun that starts with the letter 'e'"
+
+  const prompt7 = "please write a random sentence in italian in level a2, including a verb that starts with the letter 's'"
+
+
+  const prompt6 = "please write a random sentence in italian in level a1, including a common noun that starts with the letter 'q' or a verb that starts with the letter 'a'"
+
 
   const result = await model.generateContent(prompt);
   const response = await result.response;
