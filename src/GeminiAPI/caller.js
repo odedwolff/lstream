@@ -64,7 +64,12 @@ const themes = ["in and around the house", "at work", "in school", "at the unive
     " reading and writing", " freindship", " love ", " wild animals", " pets", "plants and flowers", " the weather",
     " the landscape", " the city", " the street", " the village", " computers and technology", " crafts", 
     " healthcare and medicine", " the human body ", " clothing", " traveling", " mood and emotions", 
-    " traditions and holidays",     
+    " traditions and holidays",   
+    " at the care repair", " job search", "decision making", " straggling", "hope", "dreams", "childhood", " fear", 
+    " courage", " philosophy", " pyhsics", " chimestry", " biology", " stars", "the sky", " the earath", " the mountains", 
+    " clocks", " spirituality", " rock music", "pop music", " understanding", " cooking", " disappointment", " beliefe", 
+    " doubt", " beurocracy", " dogs", " cats", " birds", "buildings", " phones", "cars", " traffic", "the weather", " the climate",
+    " sports events", " languages", " cultures", " professions", " history", " literature", " psychology", " loss", " victory" 
 ]
 
 
