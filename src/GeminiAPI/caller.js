@@ -69,7 +69,15 @@ const themes = ["in and around the house", "at work", "in school", "at the unive
     " courage", " philosophy", " pyhsics", " chimestry", " biology", " stars", "the sky", " the earath", " the mountains", 
     " clocks", " spirituality", " rock music", "pop music", " understanding", " cooking", " disappointment", " beliefe", 
     " doubt", " beurocracy", " dogs", " cats", " birds", "buildings", " phones", "cars", " traffic", "the weather", " the climate",
-    " sports events", " languages", " cultures", " professions", " history", " literature", " psychology", " loss", " victory" 
+    " sports events", " languages", " cultures", " professions", " history", " literature", " psychology", " loss", " victory",
+    "memories", "hopes", "dreaming", "talent", "sickness", "surprises", "inner design", "cleaning the house", "going on a diet", 
+    "life on the farm", "traditions of folks", "tasty dishes", "clothing", "moving", "the news", "religions", "traditions",
+     "at the hospital", "a visit to the doctor", "babies and theirs parents", "games", "toys", "the kindergarten", "the forest",
+      "the picnic", "the river", "the desert", "on the highway", "hiking", "camping", "playing", "singing", "at the office",
+       "different trades", "different blue collar jobs", "proverbs and adages", "different mythologies", "folk traditions",
+        "countries and cities of the world", "construction", "engineering", "bridges", "parking lots", "elevators", "birds", "pubs", 
+        "restaurants", "the moon", "the different colors", "different types of furniture", "a sports hall", "the street life", 
+        "the city square", "Emergency medical services", "going to the mountains"
 ]
 
 
