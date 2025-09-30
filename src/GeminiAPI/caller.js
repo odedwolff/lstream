@@ -11,7 +11,10 @@ const genAI = new GoogleGenerativeAI(apiKey);
 console.log(`genAI = ${JSON.stringify(genAI)}`);
 
 
-const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash"});
+//const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash"});
+const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash"});
+
+
 
 
 console.log(`model = ${JSON.stringify(model)}`);
