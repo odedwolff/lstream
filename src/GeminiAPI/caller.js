@@ -38,6 +38,8 @@ async function talkWithAPIs(language, level) {
     const result = await model.generateContent(prompt1);
     const response = await result.response;
     genText = response.text();
+    //post porcessing, clean up 
+    genText = genText.replace(/\*/g, '');
     console.log("generated text +" + genText);
 
     
@@ -174,10 +176,9 @@ function maxLength(level){
 
     var randTheme1 = randTheme();
     
-    const prompt = `please generate a simple sentence in ${language} suitable for ${level} proficiency level. 
-    ${initialConditionPhrase(language)} 
-    it should be related somehow theme "${randTheme1}". 
-    please do not include in your reply any comments or translation, just the raw generated sentence  `;
+    const prompt = `generate a simple sentence in ${language} in ${level} proficiency level. 
+    ${initialConditionPhrase(language)} about "${randTheme1}". 
+    do not include in your reply any comments or translation, just the raw generated sentence`
     console.log(`prompt = ${prompt} \n\n`);
      return prompt;
 
