@@ -176,8 +176,8 @@ function maxLength(level){
 
     var randTheme1 = randTheme();
     
-    const prompt = `generate a simple sentence in ${language} in ${level} proficiency level. 
-    ${initialConditionPhrase(language)} about "${randTheme1}". 
+    const prompt = `generate a simple sentence in ${language} in ${level} proficiency level, about "${randTheme1}". 
+    ${initialConditionPhrase(language)}  
     do not include in your reply any comments or translation, just the raw generated sentence`
     console.log(`prompt = ${prompt} \n\n`);
      return prompt;
@@ -213,7 +213,8 @@ function initialConditionPhrase(language){
     const langComInits = commmonInitials[language];
     const randomIndex = Math.floor(Math.random() * langComInits.length);
     //return ` the sentence should start with a word whose first letter is ${langComInits[randomIndex]}. `
-    return ` the sentence should contain a common noun whose first letter is ${langComInits[randomIndex]}. `
+   // return ` the sentence should contain a common noun whose first letter is ${langComInits[randomIndex]}. `
+    return ` include a noun beginnning with ${langComInits[randomIndex]}. `
 
 }
 
