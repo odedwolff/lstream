@@ -176,7 +176,7 @@ function maxLength(level){
 
     var randTheme1 = randTheme();
     
-    const prompt = `generate a simple sentence in ${language} in ${level} proficiency level, about "${randTheme1}". 
+    const prompt = `generate a sentence up to ${maxLength(level)} words in ${language} in ${level} proficiency level, about "${randTheme1}". 
     ${initialConditionPhrase(language)}  
     do not include in your reply any comments or translation, just the raw generated sentence`
     console.log(`prompt = ${prompt} \n\n`);
