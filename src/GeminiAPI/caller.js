@@ -191,8 +191,9 @@ const commmonInitials = {
     'German' : ['E', 'N', 'I', 'S', 'B', 'F', 'D', 'M', 'K', 'L'], 
     'Russian' : ['О', 'И', 'А', 'П', 'С', 'Н', 'В', 'Т', 'К', 'М'],
     'French' : ['L', 'D', 'P', 'C', 'A', 'S', 'E', 'J', 'M', 'T', 'F'], 
-    'spoken palestinian arabic' : ['ا', 'ل', 'ب', 'م', 'ف', 'ك', 'ت', 'س', 'ع', 'ح', 'و']
-    
+    'spoken palestinian arabic' : ['ا', 'ل', 'ب', 'م', 'ف', 'ك', 'ت', 'س', 'ع', 'ح', 'و'], 
+    'Czech' : ['P', 'S', 'V', 'Z', 'N', 'D', 'T', 'K', 'J'],
+    'Danish' : ['D','A', 'S', 'H', 'A', 'K', 'M', 'F', 'V', 'T', 'B', 'N', 'P']
 }
 
 
